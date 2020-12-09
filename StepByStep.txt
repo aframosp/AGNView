@@ -1,0 +1,66 @@
+(ipynb file)
+=> output 
+= folder
+
+1) Create the Database Sample (ObtainSamples)
+    1.1) Obtain a list of Seyfert galaxies from TAP Simbad => SMB_3Dec.fits
+    1.2) Use TOPCAT to cross-match SIMBAD galaxies and VCV Galaxies => SMB_VCV.fits
+    1.3) Obtain the bibcodes for the otype classifications in Simbad => BibcodesOtypes.fits
+    1.4) We clean the file with the final sample of galaxies in terms of redshift and bibcodes (CleanSMBVCV) =>VCV_TAP_otypes.txt
+2) Obtain the SEDs for Database Sample (Obtain_SEDs)
+    2.1) Get SEDs from CDS = CDSVotables
+    2.2) Get SEDs from NED = NEDVotables
+    2.3) Add Bibcode to CDS tables
+    2.4) Eliminate duplicate measurements 
+    2.5) Select photometry filters and average measurements for NED and CDS
+    2.6) Save SEDs = SEDs => *_Phot.txt
+3) Create CIGALE Photometry file for Database Sample (CreateCIGALEPhot)
+    3.1) Create equivalencies between NED and CDS tables
+    3.2) Clean photometry
+        3.2.1) Remove radio wavelengths
+        3.2.2) Clean photometry points for a minimum of 2% and a maximum of 33%. 
+        3.2.3) Remove galaxies taking into account energy balance, at least 2 IR bands and 5 Opt bands
+    3.3) Save galaxies at different redshifts: Below 0.5, between 0.5 and 1, and above 1
+    3.4) Create CIGALE photometry files => CIGPhot_EnergyBal_Lowz.tbl,CIGPhot_EnergyBal_Intz.tbl,CIGPhot_EnergyBal_Highz.tbl
+4) Calculate the initial numbers of the sample used (InitNumbers)
+    4.1) Numbers for VCV adn TAP
+    4.2) Numbers from photometry
+5) Run CIGALE = Peregrine, parameters in TABLE 2
+    5.1) Run Fritz models
+    5.2) Run SKIRTOR models
+    5.3) Run Frtiz and SKIRTOR models but only with two angles 30 and 70.
+6) Basic results from CIGALE
+    6.1) Join all redshift files (JoinCleanCIGALE)
+        6.1.1) Join Low, Intermediate and High-z runs in one table
+        6.1.1) Red-chi-sq distributions FIGURE 2
+                Runing median Red-chi-sq (x-axis) and FAGN (y-axes), with the distribution in a adjacent subplot
+        6.1.3) Clean good fits and calculate numbers 
+        6.1.3.4) Save files => Cleanresults_*.fits
+    6.2) Example SEDs for SKIRTOR and Fritz FIGURE 1 (ExampleSED)
+        6.2.1) Select best galaxy, expected to have it for all the SEDs
+        6.2.2) Figure with the 4 SEDs 
+7) Analyze the results with Plots (InitialAnalisis_Plot)
+    7.1) Compare physical parameters fron Fritz and SKIRTOR models FIGURE 3
+            Selected parameters (x-axes) compared between normalized (y-axes) models (colors), with errors (second row)
+    7.2) Compare difference in physical parameters; Stellar mass, FAGN, inclination, AGN luminosity with Type IMPORTANT FIGURE
+        7.2.1) Compare with both TAP and VCV classifications so Type1=S1 and Type2=S2 FIGURE 4
+        7.2.2) Compare the classifications also with the 30/70 model FIGURE ALT 4
+    7.3) Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
+    7.4) Otypes classifications as X-ray, IR and Radio FIGURE 6 in SKIRTOR
+    7.5) Redshift change histrogram and AGN luminosities FIGURE 7
+8) Analyze the results with Tables (InitAnalisis_Tables)
+    8.1) Calculate the correlation-scores of the inclination type with angle TABLE 3
+    8.2) Predict Type with RandomForest and compare TABLE 4
+    8.3) Predict S and SyG type galaxies TABLE 5
+9) Start writting ... and read
+10) Add all the information/data in Zenodo
+    
+?1.4) Find all NeV/NeII in the SIMBAD sample (AGN_with_NeV_Obtain) => AllSeyfertNeon.tbl
+    ?1.4.1) Create a file for NED galaxy names => NameNED.txt
+    ?1.4.2) Use NED and Simbad information to remove duplicates => GalaxiesWithNeVNeII.txt 
+?5.5) Check results with [Ne V]/[Ne II]  old FIGURE 7 ?
+?5.6) Check overlap between them and with Ramos Padilla 2020 old FIGURE 8 ?    
+?4) Create the HELP Sample
+    4.1) Obtain galaxies of the largest field on HELP, Herschel-82
+    4.2) Use TOPCAT to match VCV_TAP with galaxies in HELP, clean in terms of redshift => HELP_VCV_TAP.txt
+?5) Create CIGALE Photometry file for HELP Sample (CreateCIGALEPhotHELP)=> CIGALEPhotHELP.tbl
