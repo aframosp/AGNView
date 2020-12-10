@@ -52,8 +52,8 @@
     8.1) Calculate the correlation-scores of the inclination type with angle TABLE 3
     8.2) Predict Type with RandomForest and compare TABLE 4
     8.3) Predict S and SyG type galaxies TABLE 5
-9) Start writting ... and read
-10) Add all the information/data in Zenodo
+9) Start writting ... and read papers
+10) Add all the information/data in Zenodo and Github
     
 ?1.4) Find all NeV/NeII in the SIMBAD sample (AGN_with_NeV_Obtain) => AllSeyfertNeon.tbl
     ?1.4.1) Create a file for NED galaxy names => NameNED.txt
