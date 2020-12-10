@@ -2,6 +2,8 @@
 => output 
 = folder
 
+## We need to re-run the code to have a similar grid of values in the Fritz AGN module
+
 1) Create the Database Sample (ObtainSamples)
     1.1) Obtain a list of Seyfert galaxies from TAP Simbad => SMB_3Dec.fits
     1.2) Use TOPCAT to cross-match SIMBAD galaxies and VCV Galaxies => SMB_VCV.fits
