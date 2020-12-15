@@ -28,9 +28,10 @@
     4.1) Numbers for VCV adn TAP
     4.2) Numbers from photometry
 5) Run CIGALE = Peregrine, parameters in TABLE 2
-    5.1) Run Fritz models
-    5.2) Run SKIRTOR models
-    5.3) Run Frtiz and SKIRTOR models but only with two angles 30 and 70.
+    5.1) Run Fritz models Fr
+    5.2) Run SKIRTOR models SK
+    5.3) Run Fritz and SKIRTOR models but only with two angles 30 and 70.
+    5.4) Run Fr and SK for fAGN=0, should have the same results
 6) Basic results from CIGALE
     6.1) Join all redshift files (JoinCleanCIGALE)
         6.1.1) Join Low, Intermediate and High-z runs in one table
