@@ -37,12 +37,12 @@
         6.1.1) Join Low, Intermediate and High-z runs in one table
         6.1.1) Red-chi-sq distributions FIGURE 2
                 Runing median Red-chi-sq (x-axis) and FAGN (y-axes), with the distribution in a adjacent subplot
-        6.1.3) Clean good fits and calculate numbers 
+        6.1.3) Clean good fits and calculate some numbers 
         6.1.3.4) Save files => Cleanresults_*.fits
     6.2) Example SEDs for SKIRTOR and Fritz FIGURE 1 (ExampleSED)
         6.2.1) Select best galaxy, expected to have it for all the SEDs
         6.2.2) Figure with the 4 SEDs 
-7) Analyze the results with Plots (InitialAnalisis_Plot)
+7) Analyze the results with Plots (Analysis_Plot)
     7.1) Compare physical parameters fron Fritz and SKIRTOR models FIGURE 3
             Selected parameters (x-axes) compared between normalized (y-axes) models (colors), with errors (second row)
     7.2) Compare difference in physical parameters; Stellar mass, FAGN, inclination, AGN luminosity with Type IMPORTANT FIGURE
@@ -51,7 +51,7 @@
     7.3) Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
     7.4) Otypes classifications as X-ray, IR and Radio FIGURE 6 in SKIRTOR
     7.5) Redshift change histrogram and AGN luminosities FIGURE 7
-8) Analyze the results with Tables (InitAnalisis_Tables)
+8) Analyze the results with Tables (Analysis_Tables)
     8.1) Calculate the correlation-scores of the inclination type with angle TABLE 3
     8.2) Predict Type with RandomForest and compare TABLE 4
     8.3) Predict S and SyG type galaxies TABLE 5
