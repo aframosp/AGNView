@@ -38,7 +38,7 @@
         6.1.2) Red-chi-sq distributions FIGURE 2
                 Runing median Red-chi-sq (x-axis) and FAGN (y-axes), with the distribution in a adjacent subplot
         6.1.3) Clean good fits and save files => Cleanresults_*.fits
-        6.1.4) Calculate the counts for galaxy type
+        6.1.4) Calculate the counts for galaxy type TABLE 3 
     6.2) Example SEDs for SKIRTOR and Fritz FIGURE 1 (ExampleSED)
         6.2.1) Select best galaxy, expected to have it for all the SEDs
         6.2.2) Figure with the 4 SEDs 
@@ -52,9 +52,9 @@
     7.4) Otypes classifications as X-ray, IR and Radio FIGURE 6 in SKIRTOR
     7.5) Redshift change histrogram and AGN luminosities FIGURE 7
 8) Analyze the results with Tables (Analysis_Tables)
-    8.1) Calculate the correlation-scores of the inclination type with angle TABLE 3
-    8.2) Predict Type with RandomForest and compare TABLE 4
-    8.3) Predict S and SyG type galaxies TABLE 5
+    8.1) Calculate the correlation-scores of the inclination type with angle TABLE 4
+    8.2) Predict Type with RandomForest and compare TABLE 5
+    8.3) Predict S and SyG type galaxies TABLE 6
 9) Start writting ... and read papers
 10) Add all the information/data in Zenodo and Github
     
