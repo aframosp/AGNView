@@ -14,7 +14,7 @@
     2.2) Get SEDs from NED = NEDVotables
     2.3) Add Bibcode to CDS tables
     2.4) Eliminate duplicate measurements 
-    2.5) Select photometry filters and average measurements for NED and CDS
+    2.5) Select photometric filters and average measurements for NED and CDS
     2.6) Save SEDs = SEDs => *_Phot.txt
 3) Create CIGALE Photometry file for Database Sample (CreateCIGALEPhot)
     3.1) Create equivalencies between NED and CDS tables
@@ -25,7 +25,7 @@
     3.3) Save galaxies at different redshifts: Below 0.5, between 0.5 and 1, and above 1
     3.4) Create CIGALE photometry files => CIGPhot_EnergyBal_Lowz.tbl,CIGPhot_EnergyBal_Intz.tbl,CIGPhot_EnergyBal_Highz.tbl
 4) Calculate the initial numbers of the sample used (InitNumbers)
-    4.1) Numbers for VCV adn TAP
+    4.1) Numbers for VCV and SMB
     4.2) Numbers from photometry
 5) Run CIGALE = Peregrine, parameters in TABLE 2
     5.1) Run Fritz models Fr
@@ -35,28 +35,33 @@
 6) Basic results from CIGALE
     6.1) Join all redshift files (JoinCleanCIGALE)
         6.1.1) Join Low, Intermediate and High-z runs in one table
-        6.1.2) Red-chi-sq distributions FIGURE 2
-                Runing median Red-chi-sq (x-axis) and FAGN (y-axes), with the distribution in a adjacent subplot
+        6.1.2) Red-chi-square distributions FIGURE 2
+                Running median Red-chi-sq (x-axis) and FAGN (y-axes), with the distribution in a adjacent subplot
         6.1.3) Clean good fits and save files => Cleanresults_*.fits
         6.1.4) Calculate the counts for galaxy type TABLE 3 
     6.2) Example SEDs for SKIRTOR and Fritz FIGURE 1 (ExampleSED)
         6.2.1) Select best galaxy, expected to have it for all the SEDs
         6.2.2) Figure with the 4 SEDs 
-7) Analyze the results with Plots (Analysis_Plot)
-    7.1) Compare physical parameters fron Fritz and SKIRTOR models FIGURE 3
+7) Pre-Analyse 
+    7.1) Join clean results
+    7.2) Experiment the best parameters assuming the SMB classification
+8) Analyse the results with Plots (Analysis_Plot)
+    8.1) Join clean results
+    8.2) Compare physical parameters from Fritz and SKIRTOR models FIGURE 3
             Selected parameters (x-axes) compared between normalized (y-axes) models (colors), with errors (second row)
-    7.2) Compare difference in physical parameters; Stellar mass, FAGN, inclination, AGN luminosity with Type IMPORTANT FIGURE
-        7.2.1) Compare with both TAP and VCV classifications so Type1=S1 and Type2=S2 FIGURE 4
-        7.2.2) Compare the classifications also with the 30/70 model FIGURE ALT 4
-    7.3) Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
-    7.4) Otypes classifications as X-ray, IR and Radio FIGURE 6 in SKIRTOR
-    7.5) Redshift change histrogram and AGN luminosities FIGURE 7
-8) Analyze the results with Tables (Analysis_Tables)
-    8.1) Calculate the correlation-scores of the inclination type with angle TABLE 4
-    8.2) Predict Type with RandomForest and compare TABLE 5
-    8.3) Predict S and SyG type galaxies TABLE 6
-9) Start writting ... and read papers
-10) Add all the information/data in Zenodo and Github
+    8.3) Compare difference in physical parameters; Stellar mass, FAGN, inclination, AGN luminosity with Type IMPORTANT FIGURE
+        8.3.1) Compare with both SMB and VCV classifications so Type1=S1 and Type2=S2 FIGURE 4
+        8.3.2) Compare the classifications also with the 30/70 model FIGURE ALT 4
+    8.4) Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
+    8.5) Otypes classifications as X-ray, IR and Radio FIGURE 6 in SKIRTOR
+    8.6) Redshift change histogram and AGN luminosities FIGURE 7
+9) Analyse the results with Tables (Analysis_Tables)
+    9.1) Join clean results
+    9.2) Calculate the correlation-scores of the inclination type with angle TABLE 4
+    9.3) Predict Type with RandomForest and compare TABLE 5
+    9.4) Predict S and SyG type galaxies TABLE 6
+10) Start writing ... and read papers
+11) Add all the information/data in Zenodo and Github
     
 ?1.4) Find all NeV/NeII in the SIMBAD sample (AGN_with_NeV_Obtain) => AllSeyfertNeon.tbl
     ?1.4.1) Create a file for NED galaxy names => NameNED.txt
@@ -67,3 +72,5 @@
     4.1) Obtain galaxies of the largest field on HELP, Herschel-82
     4.2) Use TOPCAT to match VCV_TAP with galaxies in HELP, clean in terms of redshift => HELP_VCV_TAP.txt
 ?5) Create CIGALE Photometry file for HELP Sample (CreateCIGALEPhotHELP)=> CIGALEPhotHELP.tbl
+
+
