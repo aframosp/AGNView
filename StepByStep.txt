@@ -45,22 +45,25 @@
 7) Pre-Analyse 
     7.1) Join clean results
     7.2) Experiment the best parameters assuming the SMB classification
-8) Analyse the results with Plots (Analysis_Plot)
+        7.2.1) Remove parameters that are not useful
+        7.2.2) Use GridSearch CV to find parameters
+8) Analyse the results with Tables (Analysis_Tables)
     8.1) Join clean results
-    8.2) Compare physical parameters from Fritz and SKIRTOR models FIGURE 3
-            Selected parameters (x-axes) compared between normalized (y-axes) models (colors), with errors (second row)
-    8.3) Compare difference in physical parameters; Stellar mass, FAGN, inclination, AGN luminosity with Type IMPORTANT FIGURE
-        8.3.1) Compare with both SMB and VCV classifications so Type1=S1 and Type2=S2 FIGURE 4
-        8.3.2) Compare the classifications also with the 30/70 model FIGURE ALT 4
-    8.4) Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
-    8.5) Otypes classifications as X-ray, IR and Radio FIGURE 6 in SKIRTOR
-    8.6) Redshift change histogram and AGN luminosities FIGURE 7
-9) Analyse the results with Tables (Analysis_Tables)
+    8.2) Calculate the correlation-scores of the inclination type with angle TABLE 4
+    8.3) Apply feature selection (RFECV) to use only the ones that we need for the analysis
+    8.4) Predict classifications with ML-algorithms and compare TABLE 5
+    8.5) Predict classifications ofr S and SyG type galaxies TABLE 6
+9) Analyse the results with Plots (Analysis_Plot)
     9.1) Join clean results
-    9.2) Calculate the correlation-scores of the inclination type with angle TABLE 4
-    9.3) Predict Type with RandomForest and compare TABLE 5
-    9.4) Predict S and SyG type galaxies TABLE 6
-10) Start writing ... and read papers
+    9.2) Compare physical parameters from Fritz and SKIRTOR models FIGURE 3
+            Selected parameters (x-axes) compared between normalized (y-axes) models (colors), with errors (second row)
+    9.3) Compare difference in physical parameters; Stellar mass, FAGN, inclination, AGN luminosity with Type IMPORTANT FIGURE
+        9.3.1) Compare with both SMB and VCV classifications so Type1=S1 and Type2=S2 FIGURE 4
+        9.3.2) Compare the classifications also with the 30/70 model FIGURE ALT 4
+    9.4) Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
+    9.5) Otypes classifications as X-ray, IR and Radio FIGURE 6 in SKIRTOR
+    9.6) Redshift change histogram and AGN luminosities FIGURE 7
+NOW) Writing and reading paper/s
 11) Add all the information/data in Zenodo and Github
     
 ?1.4) Find all NeV/NeII in the SIMBAD sample (AGN_with_NeV_Obtain) => AllSeyfertNeon.tbl
@@ -72,5 +75,3 @@
     4.1) Obtain galaxies of the largest field on HELP, Herschel-82
     4.2) Use TOPCAT to match VCV_TAP with galaxies in HELP, clean in terms of redshift => HELP_VCV_TAP.txt
 ?5) Create CIGALE Photometry file for HELP Sample (CreateCIGALEPhotHELP)=> CIGALEPhotHELP.tbl
-
-
