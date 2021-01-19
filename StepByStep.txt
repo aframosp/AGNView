@@ -4,11 +4,21 @@
 
 ## We need to re-run the code to have a similar grid of values in the Fritz AGN module
 
-1) Create the Database Sample (ObtainSamples)
-    1.1) Obtain a list of Seyfert galaxies from TAP Simbad => SMB_3Dec.fits
+1) Create the Database Sample (Obtain_Seyfert_Samples)
+    1.1) Obtain a list of Seyfert galaxies from Simbad TAP => SMB_3Dec.fits
     1.2) Use TOPCAT to cross-match SIMBAD galaxies and VCV Galaxies => SMB_VCV.fits
     1.3) Obtain the bibcodes for the otype classifications in Simbad => BibcodesOtypes.fits
-    1.4) We clean the file with the final sample of galaxies in terms of redshift and bibcodes (CleanSMBVCV) =>VCV_TAP_otypes.txt
+    1.4) Present another solution the previous steps
+2) Clean the Seyfert Sample (CleanSMBVCV)
+    2.1) Remove different redshifts
+    2.2) Separate the origin of the bibcode
+    2.3) Dealing with UNK bibcodes and Seyfert Types
+    2.4) Dealing with emission origin with UNK bibcode
+    2.5) Create the final sample of galaxies in terms of redshift and bibcodes =>VCV_TAP_otypes.txt
+    2.6) Calculate the final numbers from the otypes
+### This file is broken need fix
+
+
 2) Obtain the SEDs for Database Sample (Obtain_SEDs)
     2.1) Get SEDs from CDS = CDSVotables
     2.2) Get SEDs from NED = NEDVotables
