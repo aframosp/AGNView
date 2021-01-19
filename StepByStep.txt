@@ -16,16 +16,11 @@
     2.4) Dealing with emission origin with UNK bibcode
     2.5) Create the final sample of galaxies in terms of redshift and bibcodes =>VCV_TAP_otypes.txt
     2.6) Calculate the final numbers from the otypes
-### This file is broken need fix
-
-
-2) Obtain the SEDs for Database Sample (Obtain_SEDs)
-    2.1) Get SEDs from CDS = CDSVotables
-    2.2) Get SEDs from NED = NEDVotables
-    2.3) Add Bibcode to CDS tables
-    2.4) Eliminate duplicate measurements 
-    2.5) Select photometric filters and average measurements for NED and CDS
-    2.6) Save SEDs = SEDs => *_Phot.txt
+3) Obtain the SEDs for Database Sample (Obtain_SEDs)
+    3.1) Get SEDs from CDS = CDSVotables, and NED = NEDVotables with their respective bibcodes and eliminating duplicate measurements 
+    3.2) Select photometric filters/bands
+    3.3) Save SEDs = SEDs => *_Phot.txt
+## Fixing contents
 3) Create CIGALE Photometry file for Database Sample (CreateCIGALEPhot)
     3.1) Create equivalencies between NED and CDS tables
     3.2) Clean photometry
