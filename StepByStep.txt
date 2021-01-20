@@ -9,7 +9,7 @@
     1.2) Use TOPCAT to cross-match SIMBAD galaxies and VCV Galaxies => SMB_VCV.fits
     1.3) Obtain the bibcodes for the otype classifications in Simbad => BibcodesOtypes.fits
     1.4) Present another solution the previous steps
-2) Clean the Seyfert Sample (CleanSMBVCV)
+2) Clean the Seyfert Sample (Clean_Sample)
     2.1) Remove different redshifts
     2.2) Separate the origin of the bibcode
     2.3) Dealing with UNK bibcodes and Seyfert Types
@@ -20,23 +20,23 @@
     3.1) Get SEDs from CDS = CDSVotables, and NED = NEDVotables with their respective bibcodes and eliminating duplicate measurements 
     3.2) Select photometric filters/bands
     3.3) Save SEDs = SEDs => *_Phot.txt
-## Fixing contents
-3) Create CIGALE Photometry file for Database Sample (CreateCIGALEPhot)
-    3.1) Create equivalencies between NED and CDS tables
-    3.2) Clean photometry
-        3.2.1) Remove radio wavelengths
-        3.2.2) Clean photometry points for a minimum of 2% and a maximum of 33%. 
-        3.2.3) Remove galaxies taking into account energy balance, at least 2 IR bands and 5 Opt bands
-    3.3) Save galaxies at different redshifts: Below 0.5, between 0.5 and 1, and above 1
-    3.4) Create CIGALE photometry files => CIGPhot_EnergyBal_Lowz.tbl,CIGPhot_EnergyBal_Intz.tbl,CIGPhot_EnergyBal_Highz.tbl
-4) Calculate the initial numbers of the sample used (InitNumbers)
-    4.1) Numbers for VCV and SMB
-    4.2) Numbers from photometry
+4) Create CIGALE Photometry file for Database Sample (Create_CIGALEPhot)
+    4.1) Create equivalencies between NED and CDS tables
+    4.2) Transform photometry to CIGALE table
+    4.3) Clean photometry points for a minimum of 2% and a maximum of 33%. 
+    4.4) Remove galaxies taking into account energy balance, at least 2 IR bands and 5 Opt bands
+    4.5) Separating galaxies at different redshifts: Below 0.5, between 0.5 and 1, and above 1
+    4.6) Create CIGALE photometry files => CIGPhot_EnergyBal_Lowz.tbl,CIGPhot_EnergyBal_Intz.tbl,CIGPhot_EnergyBal_Highz.tbl
 5) Run CIGALE = Peregrine, parameters in TABLE 2
     5.1) Run Fritz models Fr
     5.2) Run SKIRTOR models SK
     5.3) Run Fritz and SKIRTOR models but only with two angles 30 and 70.
     5.4) Run Fr and SK for fAGN=0, should have the same results
+
+## Fixing contents
+4) Calculate the initial numbers of the sample used (InitNumbers)
+    4.1) Numbers for VCV and SMB
+    4.2) Numbers from photometry
 6) Basic results from CIGALE
     6.1) Join all redshift files (JoinCleanCIGALE)
         6.1.1) Join Low, Intermediate and High-z runs in one table
