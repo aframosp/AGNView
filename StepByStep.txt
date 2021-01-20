@@ -41,23 +41,22 @@ TOC
     6.2) Numbers from VCV
     6.3) Numbers from SMB
     6.4) Numbers in both SMB and VCV, part of the values for TABLE 3 
+7) Join and clean CIGALE results (Clean_CIGALE_results)
+    7.1) Join Low, Intermediate and High-z runs in one table
+    7.2) Red-chi-square distributions FIGURE 2
+            Running median Red-chi-sq (x-axis) and FAGN (y-axes), with the distribution in a adjacent subplot
+    7.3) Cleaning and save files => Cleanresults_*.fits
+    7.4) Calculate the counts for galaxy type TABLE 3 
 
 ## Fixing contents
-6) Basic results from CIGALE
-    6.1) Join all redshift files (JoinCleanCIGALE)
-        6.1.1) Join Low, Intermediate and High-z runs in one table
-        6.1.2) Red-chi-square distributions FIGURE 2
-                Running median Red-chi-sq (x-axis) and FAGN (y-axes), with the distribution in a adjacent subplot
-        6.1.3) Clean good fits and save files => Cleanresults_*.fits
-        6.1.4) Calculate the counts for galaxy type TABLE 3 
-    6.2) Example SEDs for SKIRTOR and Fritz FIGURE 1 (ExampleSED)
-        6.2.1) Select best galaxy, expected to have it for all the SEDs
-        6.2.2) Figure with the 4 SEDs 
-7) Pre-Analyse 
-    7.1) Join clean results
-    7.2) Experiment the best parameters assuming the SMB classification
-        7.2.1) Remove parameters that are not useful
-        7.2.2) Use GridSearch CV to find parameters
+8) Example SEDs for SKIRTOR and Fritz FIGURE 1 (ExampleSED)
+    8.1) Select best galaxy, expected to have it for all the SEDs
+    8.2) Figure with the 4 SEDs 
+9) Pre-Analyse 
+    9.1) Join clean results
+    9.2) Experiment the best parameters assuming the SMB classification
+    9.3) Remove parameters that are not useful
+    9.4) Use GridSearch CV to find parameters
         
 UP TO HERE IT SHOULD BE READY        
    
@@ -77,8 +76,7 @@ UP TO HERE IT SHOULD BE READY
     9.4) Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
     9.5) Otypes classifications as X-ray, IR and Radio FIGURE 6 in SKIRTOR
     9.6) Redshift change histogram and AGN luminosities FIGURE 7
-NOW) Writing and reading paper/s
-11) Add all the information/data in Zenodo and Github
+12) Write final README.md
 
 ## Old TOC information (Maybe useful?)
 ?1.4) Find all NeV/NeII in the SIMBAD sample (AGN_with_NeV_Obtain) => AllSeyfertNeon.tbl
