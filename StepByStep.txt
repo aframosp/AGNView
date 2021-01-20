@@ -1,9 +1,13 @@
+StepByStep file
+
+This works a Table of contents (TOC) to follow the procedures done to reproduce the information presented in the paper. Is important to keep in mind that some of the steps are not going to be in the GitHub repository (For example Step 5, where we run the CIGALE modelling in a computer cluster). The numbers of this TOC will be the same as in the Jupyter notebooks.
+
+Some important clarrifications are the following:
 (ipynb file)
 => output 
 = folder
 
-## We need to re-run the code to have a similar grid of values in the Fritz AGN module
-
+TOC
 1) Create the Database Sample (Obtain_Seyfert_Samples)
     1.1) Obtain a list of Seyfert galaxies from Simbad TAP => SMB_3Dec.fits
     1.2) Use TOPCAT to cross-match SIMBAD galaxies and VCV Galaxies => SMB_VCV.fits
@@ -32,11 +36,13 @@
     5.2) Run SKIRTOR models SK
     5.3) Run Fritz and SKIRTOR models but only with two angles 30 and 70.
     5.4) Run Fr and SK for fAGN=0, should have the same results
+6) Calculate the initial numbers of the sample used (Initial_Numbers)
+    6.1) Numbers from photometry TABLE 1
+    6.2) Numbers from VCV
+    6.3) Numbers from SMB
+    6.4) Numbers in both SMB and VCV, part of the values for TABLE 3 
 
 ## Fixing contents
-4) Calculate the initial numbers of the sample used (InitNumbers)
-    4.1) Numbers for VCV and SMB
-    4.2) Numbers from photometry
 6) Basic results from CIGALE
     6.1) Join all redshift files (JoinCleanCIGALE)
         6.1.1) Join Low, Intermediate and High-z runs in one table
@@ -52,6 +58,9 @@
     7.2) Experiment the best parameters assuming the SMB classification
         7.2.1) Remove parameters that are not useful
         7.2.2) Use GridSearch CV to find parameters
+        
+UP TO HERE IT SHOULD BE READY        
+   
 8) Analyse the results with Tables (Analysis_Tables)
     8.1) Join clean results
     8.2) Calculate the correlation-scores of the inclination type with angle TABLE 4
@@ -70,7 +79,8 @@
     9.6) Redshift change histogram and AGN luminosities FIGURE 7
 NOW) Writing and reading paper/s
 11) Add all the information/data in Zenodo and Github
-    
+
+## Old TOC information (Maybe useful?)
 ?1.4) Find all NeV/NeII in the SIMBAD sample (AGN_with_NeV_Obtain) => AllSeyfertNeon.tbl
     ?1.4.1) Create a file for NED galaxy names => NameNED.txt
     ?1.4.2) Use NED and Simbad information to remove duplicates => GalaxiesWithNeVNeII.txt 
