@@ -47,11 +47,11 @@ TOC
             Running median Red-chi-sq (x-axis) and FAGN (y-axes), with the distribution in a adjacent subplot
     7.3) Cleaning and save files => Cleanresults_*.fits
     7.4) Calculate the counts for galaxy type TABLE 3 
+8) Example SEDs for SKIRTOR and Fritz (SED_Plots)
+    8.1) Select best and worst SED fittings
+    8.2) Plot the 4 SEDs for the best galaxy FIGURE 1 and the worst galaxy 
 
-## Fixing contents
-8) Example SEDs for SKIRTOR and Fritz FIGURE 1 (ExampleSED)
-    8.1) Select best galaxy, expected to have it for all the SEDs
-    8.2) Figure with the 4 SEDs 
+## Fixing contents    
 9) Pre-Analyse 
     9.1) Join clean results
     9.2) Experiment the best parameters assuming the SMB classification
@@ -77,6 +77,9 @@ UP TO HERE IT SHOULD BE READY
     9.5) Otypes classifications as X-ray, IR and Radio FIGURE 6 in SKIRTOR
     9.6) Redshift change histogram and AGN luminosities FIGURE 7
 12) Write final README.md
+
+13) All galaxies with the 5 SEDs models MAYBE A SECOND ZENODO REPOSITORY (Done in Peregrine)
+
 
 ## Old TOC information (Maybe useful?)
 ?1.4) Find all NeV/NeII in the SIMBAD sample (AGN_with_NeV_Obtain) => AllSeyfertNeon.tbl
