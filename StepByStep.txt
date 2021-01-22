@@ -1,6 +1,9 @@
 StepByStep file
 
-This works a Table of contents (TOC) to follow the procedures done to reproduce the information presented in the paper. Is important to keep in mind that some of the steps are not going to be in the GitHub repository (For example Step 5, where we run the CIGALE modelling in a computer cluster). The numbers of this TOC will be the same as in the Jupyter notebooks.
+This works a Table of contents (TOC) to follow the procedures done to reproduce the information presented in the paper.
+Is important to keep in mind that some of the steps are not going to be in the GitHub repository (For example Step 5,
+where we run the CIGALE modelling in a computer cluster). 
+The numbers of this TOC will be the same as in the Jupyter notebooks.
 
 Some important clarrifications are the following:
 (ipynb file)
@@ -21,7 +24,8 @@ TOC
     2.5) Create the final sample of galaxies in terms of redshift and bibcodes =>VCV_TAP_otypes.txt
     2.6) Calculate the final numbers from the otypes
 3) Obtain the SEDs for Database Sample (Obtain_SEDs)
-    3.1) Get SEDs from CDS = CDSVotables, and NED = NEDVotables with their respective bibcodes and eliminating duplicate measurements 
+    3.1) Get SEDs from CDS = CDSVotables, and NED = NEDVotables with their respective bibcodes and
+         eliminating duplicate measurements 
     3.2) Select photometric filters/bands
     3.3) Save SEDs = SEDs => *_Phot.txt
 4) Create CIGALE Photometry file for Database Sample (Create_CIGALEPhot)
@@ -30,7 +34,8 @@ TOC
     4.3) Clean photometry points for a minimum of 2% and a maximum of 33%. 
     4.4) Remove galaxies taking into account energy balance, at least 2 IR bands and 5 Opt bands
     4.5) Separating galaxies at different redshifts: Below 0.5, between 0.5 and 1, and above 1
-    4.6) Create CIGALE photometry files => CIGPhot_EnergyBal_Lowz.tbl,CIGPhot_EnergyBal_Intz.tbl,CIGPhot_EnergyBal_Highz.tbl
+    4.6) Create CIGALE photometry files => CIGPhot_EnergyBal_Lowz.tbl,CIGPhot_EnergyBal_Intz.tbl,
+         CIGPhot_EnergyBal_Highz.tbl
 5) Run CIGALE = Peregrine, parameters in TABLE 2
     5.1) Run Fritz models Fr
     5.2) Run SKIRTOR models SK
@@ -49,33 +54,30 @@ TOC
     7.4) Calculate the counts for galaxy type TABLE 3 
 8) Example SEDs for SKIRTOR and Fritz (SED_Plots)
     8.1) Select best and worst SED fittings
-    8.2) Plot the 4 SEDs for the best galaxy FIGURE 1 and the worst galaxy 
-
-## Fixing contents    
-9) Pre-Analyse 
+    8.2) Plot the 4 SEDs for the best galaxy FIGURE 1 and the worst galaxy   
+9) Pre-Analyse of data
     9.1) Join clean results
-    9.2) Experiment the best parameters assuming the SMB classification
-    9.3) Remove parameters that are not useful
-    9.4) Use GridSearch CV to find parameters
+    9.2) Experiments with the parameters of the classifiers, assuming the SMB classification
+    9.3) Use GridSearchCV to find parameters for the classifiers
         
-UP TO HERE IT SHOULD BE READY        
+UP TO HERE IT IS READY        
    
-8) Analyse the results with Tables (Analysis_Tables)
-    8.1) Join clean results
-    8.2) Calculate the correlation-scores of the inclination type with angle TABLE 4
-    8.3) Apply feature selection (RFECV) to use only the ones that we need for the analysis
-    8.4) Predict classifications with ML-algorithms and compare TABLE 5
-    8.5) Predict classifications ofr S and SyG type galaxies TABLE 6
-9) Analyse the results with Plots (Analysis_Plot)
-    9.1) Join clean results
-    9.2) Compare physical parameters from Fritz and SKIRTOR models FIGURE 3
+10) Analyse the results with Tables (Analysis_Tables)
+    10.1) Join clean results
+    10.2) Calculate the correlation-scores of the inclination type with angle TABLE 4
+    10.3) Apply feature selection (RFECV) to use only the ones that we need for the analysis
+    10.4) Predict classifications with ML-algorithms and compare TABLE 5
+    10.5) Predict classifications ofr S and SyG type galaxies TABLE 6
+11) Analyse the results with Plots (Analysis_Plot)
+    11.1) Join clean results
+    11.2) Compare physical parameters from Fritz and SKIRTOR models FIGURE 3
             Selected parameters (x-axes) compared between normalized (y-axes) models (colors), with errors (second row)
-    9.3) Compare difference in physical parameters; Stellar mass, FAGN, inclination, AGN luminosity with Type IMPORTANT FIGURE
-        9.3.1) Compare with both SMB and VCV classifications so Type1=S1 and Type2=S2 FIGURE 4
-        9.3.2) Compare the classifications also with the 30/70 model FIGURE ALT 4
-    9.4) Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
-    9.5) Otypes classifications as X-ray, IR and Radio FIGURE 6 in SKIRTOR
-    9.6) Redshift change histogram and AGN luminosities FIGURE 7
+    11.3) Compare difference in physical parameters; Stellar mass, FAGN, inclination, AGN luminosity with Type IMPORTANT FIGURE
+        11.3.1) Compare with both SMB and VCV classifications so Type1=S1 and Type2=S2 FIGURE 4
+        11.3.2) Compare the classifications also with the 30/70 model FIGURE ALT 4
+    11.4) Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
+    11.5) Otypes classifications as X-ray, IR and Radio FIGURE 6 in SKIRTOR
+    11.6) Redshift change histogram and AGN luminosities FIGURE 7
 12) Write final README.md
 
 13) All galaxies with the 5 SEDs models MAYBE A SECOND ZENODO REPOSITORY (Done in Peregrine)
