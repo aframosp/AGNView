@@ -62,10 +62,10 @@ TOC
 10) Analyse the results with Tables (Analysis_Tables)
     10.1) Join clean results
     10.2) Calculate the correlation-scores of the inclination type with angle TABLE 4
-***UP TO HERE IT IS READY***        
     10.3) Feature selection using RFECV and PCA, selecting the physical parameters that we need for the analysis
-    10.4) Predict classifications with ML-algorithms and compare TABLE 4
-    10.5) Predict classifications ofr S and SyG type galaxies TABLE 5
+    10.4) Predict classifications with ML-algorithms TABLE 4
+    10.5) Predict classifications for S and SyG type galaxies TABLE 5
+***UP TO HERE IT IS READY***            
 11) Analyse the results with Plots (Analysis_Plots)
     11.1) Join clean results
     11.2) Compare physical parameters from Fritz and SKIRTOR models FIGURE 3
