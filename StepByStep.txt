@@ -1,76 +1,84 @@
+StepByStep file
+
+This works a Table of contents (TOC) to follow the procedures done to reproduce the information presented in the paper.
+Is important to keep in mind that some of the steps are not going to be in the GitHub repository (For example Step 5,
+where we run the CIGALE modelling in a computer cluster). 
+The numbers of this TOC will be the same as in the Jupyter notebooks.
+
+Some important clarrifications are the following:
 (ipynb file)
 => output 
 = folder
 
-## We need to re-run the code to have a similar grid of values in the Fritz AGN module
-
+TOC
 1) Create the Database Sample (Obtain_Seyfert_Samples)
     1.1) Obtain a list of Seyfert galaxies from Simbad TAP => SMB_3Dec.fits
     1.2) Use TOPCAT to cross-match SIMBAD galaxies and VCV Galaxies => SMB_VCV.fits
     1.3) Obtain the bibcodes for the otype classifications in Simbad => BibcodesOtypes.fits
     1.4) Present another solution the previous steps
-2) Clean the Seyfert Sample (CleanSMBVCV)
+2) Clean the Seyfert Sample (Clean_Sample)
     2.1) Remove different redshifts
     2.2) Separate the origin of the bibcode
     2.3) Dealing with UNK bibcodes and Seyfert Types
     2.4) Dealing with emission origin with UNK bibcode
     2.5) Create the final sample of galaxies in terms of redshift and bibcodes =>VCV_TAP_otypes.txt
-    2.6) Calculate the final numbers from the otypes
+    2.6) Calculate the final numbers from the otypes TABLE 3
 3) Obtain the SEDs for Database Sample (Obtain_SEDs)
-    3.1) Get SEDs from CDS = CDSVotables, and NED = NEDVotables with their respective bibcodes and eliminating duplicate measurements 
+    3.1) Get SEDs from CDS = CDSVotables, and NED = NEDVotables with their respective bibcodes and
+         eliminating duplicate measurements 
     3.2) Select photometric filters/bands
     3.3) Save SEDs = SEDs => *_Phot.txt
-## Fixing contents
-3) Create CIGALE Photometry file for Database Sample (CreateCIGALEPhot)
-    3.1) Create equivalencies between NED and CDS tables
-    3.2) Clean photometry
-        3.2.1) Remove radio wavelengths
-        3.2.2) Clean photometry points for a minimum of 2% and a maximum of 33%. 
-        3.2.3) Remove galaxies taking into account energy balance, at least 2 IR bands and 5 Opt bands
-    3.3) Save galaxies at different redshifts: Below 0.5, between 0.5 and 1, and above 1
-    3.4) Create CIGALE photometry files => CIGPhot_EnergyBal_Lowz.tbl,CIGPhot_EnergyBal_Intz.tbl,CIGPhot_EnergyBal_Highz.tbl
-4) Calculate the initial numbers of the sample used (InitNumbers)
-    4.1) Numbers for VCV and SMB
-    4.2) Numbers from photometry
+4) Create CIGALE Photometry file for Database Sample (Create_CIGALEPhot)
+    4.1) Create equivalencies between NED and CDS tables
+    4.2) Transform photometry to CIGALE table
+    4.3) Clean photometry points for a minimum of 2% and a maximum of 33%. 
+    4.4) Remove galaxies taking into account energy balance, at least 2 IR bands and 5 Opt bands
+    4.5) Separating galaxies at different redshifts: Below 0.5, between 0.5 and 1, and above 1
+    4.6) Create CIGALE photometry files => CIGPhot_EnergyBal_Lowz.tbl,CIGPhot_EnergyBal_Intz.tbl,
+         CIGPhot_EnergyBal_Highz.tbl
 5) Run CIGALE = Peregrine, parameters in TABLE 2
     5.1) Run Fritz models Fr
     5.2) Run SKIRTOR models SK
     5.3) Run Fritz and SKIRTOR models but only with two angles 30 and 70.
     5.4) Run Fr and SK for fAGN=0, should have the same results
-6) Basic results from CIGALE
-    6.1) Join all redshift files (JoinCleanCIGALE)
-        6.1.1) Join Low, Intermediate and High-z runs in one table
-        6.1.2) Red-chi-square distributions FIGURE 2
-                Running median Red-chi-sq (x-axis) and FAGN (y-axes), with the distribution in a adjacent subplot
-        6.1.3) Clean good fits and save files => Cleanresults_*.fits
-        6.1.4) Calculate the counts for galaxy type TABLE 3 
-    6.2) Example SEDs for SKIRTOR and Fritz FIGURE 1 (ExampleSED)
-        6.2.1) Select best galaxy, expected to have it for all the SEDs
-        6.2.2) Figure with the 4 SEDs 
-7) Pre-Analyse 
-    7.1) Join clean results
-    7.2) Experiment the best parameters assuming the SMB classification
-        7.2.1) Remove parameters that are not useful
-        7.2.2) Use GridSearch CV to find parameters
-8) Analyse the results with Tables (Analysis_Tables)
-    8.1) Join clean results
-    8.2) Calculate the correlation-scores of the inclination type with angle TABLE 4
-    8.3) Apply feature selection (RFECV) to use only the ones that we need for the analysis
-    8.4) Predict classifications with ML-algorithms and compare TABLE 5
-    8.5) Predict classifications ofr S and SyG type galaxies TABLE 6
-9) Analyse the results with Plots (Analysis_Plot)
+6) Calculate the initial numbers of the sample used (Initial_Numbers)
+    6.1) Numbers from photometry TABLE 1
+    6.2) Numbers from VCV TABLE 3 
+    6.3) Numbers from SMB TABLE 3 
+    6.4) Numbers in both SMB and VCV, part of the values for TABLE 3 
+7) Join and clean CIGALE results (Clean_CIGALE_results)
+    7.1) Join Low, Intermediate and High-z runs in one table
+    7.2) Red-chi-square distributions FIGURE 2
+            Running median Red-chi-sq (x-axis) and FAGN (y-axes), with the distribution in a adjacent subplot
+    7.3) Cleaning and save files => Cleanresults_*.fits
+    7.4) Calculate the counts for galaxy type TABLE 3 
+8) Example SEDs for SKIRTOR and Fritz (SED_Plots)
+    8.1) Select best and worst SED fittings
+    8.2) Plot the 4 SEDs for the best galaxy FIGURE 1 and the worst galaxy   
+9) Pre-Analyse of data (Pre-Analysis)
     9.1) Join clean results
-    9.2) Compare physical parameters from Fritz and SKIRTOR models FIGURE 3
-            Selected parameters (x-axes) compared between normalized (y-axes) models (colors), with errors (second row)
-    9.3) Compare difference in physical parameters; Stellar mass, FAGN, inclination, AGN luminosity with Type IMPORTANT FIGURE
-        9.3.1) Compare with both SMB and VCV classifications so Type1=S1 and Type2=S2 FIGURE 4
-        9.3.2) Compare the classifications also with the 30/70 model FIGURE ALT 4
-    9.4) Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
-    9.5) Otypes classifications as X-ray, IR and Radio FIGURE 6 in SKIRTOR
-    9.6) Redshift change histogram and AGN luminosities FIGURE 7
-NOW) Writing and reading paper/s
-11) Add all the information/data in Zenodo and Github
-    
+    9.2) Experiments with the parameters of the classifiers, assuming the SMB classification
+    9.3) Use GridSearchCV to find parameters for the classifiers   
+10) Analyse the results with Tables (Analysis_Tables)
+    10.1) Join clean results
+    10.2) Calculate the correlation-scores of the inclination type with angle TABLE 4
+    10.3) Feature selection using RFECV and PCA, selecting the physical parameters that we need for the analysis
+    10.4) Predict classifications with ML-algorithms TABLE 4
+    10.5) Predict classifications for S and SyG type galaxies TABLE 5          
+11) Analyse the results with Plots (Analysis_Plots)
+    11.1) Join clean results and transform to be used in the plots
+    11.2) Compare physical parameters from Fritz and SKIRTOR models FIGURE 3
+    11.3) Compare difference in physical parameters with Type. We use both SMB and VCV classifications so Type1=S1 and
+    Type2=S2 FIGURE 4. Additionally we compare the classifications also with the 30/70 model FIGURE ALT 4
+    11.4) Compare Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
+    11.5) Relation with the original detection wavelength as X-ray, IR and Radio FIGURE 6 in SKIRTOR
+    11.6) Redshift evolution with AGN luminosities FIGURE 7
+
+12) Write final README.md
+13) All galaxies with the 5 SEDs models MAYBE A SECOND ZENODO REPOSITORY (Done in Peregrine)
+
+
+## Old TOC information (Maybe useful?)
 ?1.4) Find all NeV/NeII in the SIMBAD sample (AGN_with_NeV_Obtain) => AllSeyfertNeon.tbl
     ?1.4.1) Create a file for NED galaxy names => NameNED.txt
     ?1.4.2) Use NED and Simbad information to remove duplicates => GalaxiesWithNeVNeII.txt 

@@ -1,28 +1,30 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import time
 import numpy as np
 
 import astropy.units as u
-from astropy import coordinates
-from astropy.table import Table, vstack, unique, join
+from astropy.table import Table, vstack
 
 from astroquery.ned import Ned
 from astroquery.simbad import Simbad
 from astroquery.vizier import Vizier
-from astroquery.ned.core import RemoteServiceError, TableParseError
 
 import requests
 from os import path
 from datetime import datetime
+import matplotlib.pyplot as plt
 from numpy import unique as uniq
 
 print('File reading ...')
 FinalName = Table.read('VCV_TAP_otype.txt', format='ascii')
 print('File VCV_TAP.txt ready')
 
+
 class ObtainPhotometry:
     """This class allow us to download the SEDs from NED and SIMBAD"""
+
     def __init__(self, Name, Smot=False):
         self.name = Name
         print('Wiiii, working on galaxy ', self.name)
@@ -52,42 +54,40 @@ class ObtainPhotometry:
         if path.exists('NEDVotables/'+self.name+'.vot'):
             print('Reading NED')
         else:
-            #             time.sleep(0.5)
             try:
                 NEDTab = Ned.get_table(self.name, table='photometry')
-                NEDTab[NEDTab['NED Units'] == b'Jy'].write('NEDVotables/'+self.name+'.vot', format='votable')  # Use just photometry
+                 # Use just photometry
+                NEDTab[NEDTab['NED Units'] == b'Jy'].write('NEDVotables/'+self.name+'.vot', format='votable') 
             except:
                 self.NEDFlag = True
 
     def ReadVotTables(self):
         """Function to read the VOTables"""
-        self.CDSTable = Table.read(
-            'CDSVotables/'+self.name+'.vot', format='votable')
+        self.CDSTable = Table.read('CDSVotables/'+self.name+'.vot', format='votable')
         if self.NEDFlag:
             print('No NED Table')
-            self.NEDTable = Table(names=['Refcode', 'Flux_Density', 'Observed_Passband', 'Frequency', 'NED_Uncertainty'], masked=True)
+            self.NEDTable = Table(names=['Refcode', 'Flux_Density', 'Observed_Passband', 
+                                         'Frequency', 'NED_Uncertainty'], masked=True)
         else:
-            self.NEDTable = Table.read(
-                'NEDVotables/'+self.name+'.vot', format='votable')
+            self.NEDTable = Table.read('NEDVotables/'+self.name+'.vot', format='votable')
 
     def PlotSED(self, suav):
         """In case we want to observe the SED"""
         if suav:
             self.SmoothSED()
             print(self.CDSTable.columns, self.NEDTable.columns)
-        scatter(self.CDSTable['sed_freq'].to(u.micron, equivalencies=u.spectral()),
-                self.CDSTable['sed_flux'], label='CDS')
-        scatter(self.NEDTable['Frequency'].to(u.micron, equivalencies=u.spectral()),
-                self.NEDTable['Flux_Density'], marker='*', label='NED')
-        loglog()
-        xlabel('Wavelength [um]')
-        ylabel('Flux [Jy]')
-        legend()
+        plt.scatter(self.CDSTable['sed_freq'].to(u.micron, equivalencies=u.spectral()),
+                    self.CDSTable['sed_flux'], label='CDS')
+        plt.scatter(self.NEDTable['Frequency'].to(u.micron, equivalencies=u.spectral()),
+                    self.NEDTable['Flux_Density'], marker='*', label='NED')
+        plt.loglog()
+        plt.xlabel('Wavelength [um]')
+        plt.ylabel('Flux [Jy]')
+        plt.legend()
 
     def AddBibcodeCDS(self):
         """Adding the bibcode to the CDS tables"""
-        self.CDSTable['Bibcode'] = np.array(
-            ['Empty']*len(self.CDSTable), dtype='object')
+        self.CDSTable['Bibcode'] = np.array(['Empty']*len(self.CDSTable), dtype='object')
         for ads, adst in enumerate(self.CDSTable['_tabname']):
             try:
                 Namcat = adst.rpartition('/')[0]
@@ -100,8 +100,7 @@ class ObtainPhotometry:
         """Check the rows of CDS and NED and remove all duplicates in the photometric bands"""
         ToRem = []
         for LASD in np.unique(self.NEDTable['Refcode']):
-            LCDS = np.where(self.CDSTable['Bibcode']
-                            == LASD.decode('utf-8'))[0]
+            LCDS = np.where(self.CDSTable['Bibcode'] == LASD.decode('utf-8'))[0]
             LNED = np.where(self.NEDTable['Refcode'] == LASD)[0]
             if len(LCDS) > 0 and len(LNED) > 0:
                 print('Duplicate!')
@@ -116,10 +115,9 @@ class ObtainPhotometry:
 
     def SmoothSED(self):
         """Create a smooth SED, only for plotting"""
-        self.CDSTable = self.CDSTable.group_by(
-            'sed_freq').groups.aggregate(np.mean)
-        self.NEDTable = self.NEDTable.group_by(
-            'Frequency').groups.aggregate(np.mean)
+        self.CDSTable = self.CDSTable.group_by('sed_freq').groups.aggregate(np.mean)
+        self.NEDTable = self.NEDTable.group_by('Frequency').groups.aggregate(np.mean)
+
 
 CDSFilters = ['GALEX:FUV', 'GALEX:NUV',
               "SDSS:u'", "SDSS:g'", "SDSS:r'", "SDSS:i'", "SDSS:z'",
@@ -146,6 +144,7 @@ NEDFilters = [b'2-10 keV (XMM)', b'0.5-2 keV (XMM)',
               b'250 microns (SPIRE)', b'350 microns (SPIRE)', b'500 microns (SPIRE)',
               b'4.89 GHz (VLA)', b'1.46 GHz (VLA)', b'1.4GHz']
 
+
 class CleanPhotometry:
     """Clean the photometry in CDS and NED tables"""
 
@@ -157,70 +156,72 @@ class CleanPhotometry:
 
     def CleanCDSTo(self, table):
         """Remove rows with masked (empty) and null (0) values, then average the values."""
-        table.remove_rows(where(table['sed_eflux'].mask)[0])
-        table.remove_rows(where(table['sed_eflux'] == 0.0)[0])
-        Vales, counts = numpy.unique(table['sed_flux'], return_counts=True)
+        table.remove_rows(np.where(table['sed_eflux'].mask)[0])
+        table.remove_rows(np.where(table['sed_eflux'] == 0.0)[0])
+        Vales, counts = uniq(table['sed_flux'], return_counts=True)
         if len(Vales) > 0:
             AVG = np.average(Vales, weights=counts)
             STD = np.sqrt(np.sum(table['sed_eflux']**2))
             return(AVG, STD)
         else:
-            return(nan, nan)
+            return(np.nan, np.nan)
 
     def CleanNEDTo(self, table):
         """Remove rows with masked (empty) and string values, then average the values."""
-        table.remove_rows(where(table['Flux_Density'].mask)[0])
-        table.remove_rows(where(table['NED_Uncertainty'] == b'')[0])
-        table.remove_rows(where(table['NED_Uncertainty'] == b'+/-...')[0])
-        Vales, counts = numpy.unique(table['Flux_Density'], return_counts=True)
-        table['NED_Uncertainty'] = [
-            float(j.split(b'+/-')[-1]) for j in table['NED_Uncertainty']]
+        table.remove_rows(np.where(table['Flux_Density'].mask)[0])
+        table.remove_rows(np.where(table['NED_Uncertainty'] == b'')[0])
+        table.remove_rows(np.where(table['NED_Uncertainty'] == b'+/-...')[0])
+        Vales, counts = uniq(table['Flux_Density'], return_counts=True)
+        table['NED_Uncertainty'] = [float(j.split(b'+/-')[-1]) for j in table['NED_Uncertainty']]
         if len(Vales) > 0:
             AVG = np.average(Vales, weights=counts)
             STD = np.sqrt(np.sum(table['NED_Uncertainty']**2))
             return(AVG, STD)
         else:
-            return(nan, nan)
+            return(np.nan, np.nan)
 
     def FiltersNED(self, tableFilter):
         """ Use only the information that we need from NED """
         Tabls = []
-        Coin = [where(self.NEDTable['Observed_Passband'] == filt)[0]
-                for filt in tableFilter]
+        Coin = [np.where(self.NEDTable['Observed_Passband'] == filt)[0] for filt in tableFilter]
         for k, ktex in enumerate(Coin):
             AVG, STD = self.CleanNEDTo(self.NEDTable[ktex])
-            if isnan(AVG):
+            if np.isnan(AVG):
                 continue
             else:
-                Tabls.append([tableFilter[k], np.mean(self.NEDTable[ktex]['Frequency'].to(u.micron, equivalencies=u.spectral())),
+                Tabls.append([tableFilter[k], 
+                              np.mean(self.NEDTable[ktex]['Frequency'].to(u.micron,
+                                                                          equivalencies=u.spectral())),
                               AVG*u.Jy, STD*u.Jy])
-        return(Table(array(Tabls), names=['Filter', 'Wave', 'Flux', 'F_er'], dtype=('U32', 'float64', 'float64', 'float64')))
+        return(Table(np.array(Tabls), names=['Filter', 'Wave', 'Flux', 'F_er'],
+                     dtype=('U32', 'float64', 'float64', 'float64')))
 
     def FiltersCDS(self, tableFilter):
         """Use only the information that we need from CDS"""
         Tabls = []
-        Coin = [where(self.CDSTable['sed_filter'] == filt)[0]
+        Coin = [np.where(self.CDSTable['sed_filter'] == filt)[0]
                 for filt in tableFilter]
         for k, ktex in enumerate(Coin):
             AVG, STD = self.CleanCDSTo(self.CDSTable[ktex])
-            if isnan(AVG):
+            if np.isnan(AVG):
                 continue
             else:
-                Tabls.append([tableFilter[k], np.mean(self.CDSTable[ktex]['sed_freq'].to(u.micron, equivalencies=u.spectral())),
+                Tabls.append([tableFilter[k], 
+                              np.mean(self.CDSTable[ktex]['sed_freq'].to(u.micron,
+                                                                         equivalencies=u.spectral())),
                               AVG*u.Jy, STD*u.Jy])
-        return(Table(array(Tabls), names=['Filter', 'Wave', 'Flux', 'F_er'], dtype=('U32', 'float64', 'float64', 'float64')))
+        return(Table(np.array(Tabls), names=['Filter', 'Wave', 'Flux', 'F_er'],
+                     dtype=('U32', 'float64', 'float64', 'float64')))
 
     def JoinTables(self):
         """Finally we join the tables and remove those whose errors are too high"""
-        self.TabFin = vstack(
-            [self.FiltersCDS(CDSFilters), self.FiltersNED(NEDFilters)])
-        self.TabFin.remove_rows(
-            where(self.TabFin['F_er']/self.TabFin['Flux'] >= 1))
+        self.TabFin = vstack([self.FiltersCDS(CDSFilters), self.FiltersNED(NEDFilters)])
+        self.TabFin.remove_rows(np.where(self.TabFin['F_er']/self.TabFin['Flux'] >= 1))
 
-ii=5460 ## In case the connection is lost we will use this as our initial point 
+ii = 5460  # In case the connection is lost we will use this as our initial point
 for Galaxy in uniq(FinalName['main_id'])[ii:]:
-    InitTabl=ObtainPhotometry(Galaxy)
-    SED=CleanPhotometry(InitTabl.CDSTable,InitTabl.NEDTable).TabFin
-    SED.write('SEDs/'+Galaxy+'_Phot.txt',format='ascii')
-    ii+=1
+    InitTabl = ObtainPhotometry(Galaxy)
+    SED = CleanPhotometry(InitTabl.CDSTable, InitTabl.NEDTable).TabFin
+    SED.write('SEDs/'+Galaxy+'_Phot.txt', format='ascii')
+    ii += 1
     print(ii)
