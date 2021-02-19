@@ -70,7 +70,7 @@ TOC
     11.3) Compare difference in physical parameters with Type. We use both SMB and VCV classifications so Type1=S1 and
     Type2=S2 FIGURE 4. Additionally we compare the classifications also with the 30/70 model FIGURE ALT 4
     11.4) Compare Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
-    11.5) Redshift evolution with AGN luminosities FIGURE 6
+    11.5) Redshift evolution of physical parameters FIGURE 6
 
 12) Write final README.md
 13) All galaxies with the 5 SEDs models A SECOND ZENODO REPOSITORY (Done in Peregrine)
