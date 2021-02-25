@@ -56,13 +56,13 @@ TOC
     8.2) Plot the 4 SEDs for the best galaxy FIGURE 1 and the worst galaxy   
 9) Pre-Analyse of data (Pre-Analysis)
     9.1) Join clean results
-    9.2) Experiments with the parameters of the classifiers, assuming the SMB classification
+    9.2) Experiments with the parameters of the classifiers, assuming both classifications
     9.3) Use GridSearchCV to find parameters for the classifiers   
 10) Analyse the results with Tables (Analysis_Tables)
     10.1) Join clean results
-    10.2) Calculate the correlation-scores of the inclination type with angle TABLE 4
-    10.3) Feature selection using RFECV and PCA, selecting the physical parameters that we need for the analysis
-    10.4) Predict classifications with ML-algorithms TABLE 4
+    10.2) Feature selection using RFECV and PCA, selecting the physical parameters that we need for the analysis
+    10.3) Correlation-scores in the classification task with viewing angle and AGN disk luminosity TABLE 4
+    10.4) Correlation-scores in the classification task with ML TABLE 4
     10.5) Predict classifications for S and SyG type galaxies TABLE 5          
 11) Analyse the results with Plots (Analysis_Plots)
     11.1) Join clean results and transform to be used in the plots
