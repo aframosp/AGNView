@@ -60,20 +60,26 @@ TOC
     9.3) Use GridSearchCV to find parameters for the classifiers   
 10) Analyse the results with Tables (Analysis_Tables)
     10.1) Join clean results
-    10.2) Feature selection using RFECV and PCA, selecting the physical parameters that we need for the analysis
+    10.2) Feature selection using RFECV and PCA FIGURE 3
     10.3) Correlation-scores in the classification task with viewing angle and AGN disk luminosity TABLE 4
     10.4) Correlation-scores in the classification task with ML TABLE 4
     10.5) Predict classifications for S and SyG type galaxies TABLE 5          
 11) Analyse the results with Plots (Analysis_Plots)
     11.1) Join clean results and transform to be used in the plots
-    11.2) Compare physical parameters from Fritz and SKIRTOR models FIGURE 3
+    11.2) Compare physical parameters from Fritz and SKIRTOR models FIGURE 4
     11.3) Compare difference in physical parameters with Type. We use both SMB and VCV classifications so Type1=S1 and
-    Type2=S2 FIGURE 4. Additionally we compare the classifications also with the 30/70 model FIGURE ALT 4
-    11.4) Compare Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 5 in SKIRTOR
-    11.5) Redshift evolution of physical parameters FIGURE 6
+    Type2=S2 FIGURE 5. Additionally we compare the classifications also with the 30/70 model FIGURE ALT 5
+    11.4) Compare Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 6 in SKIRTOR
+    11.5) Redshift evolution of physical parameters FIGURE 7
+  
+A1) Verification of the narrow-line Seyfert 1 galaxies
+    A1.1) Join information
+    A1.2) Comparing AGN parameters FIGURE A1
 
-12) Write final README.md
-13) All galaxies with the 5 SEDs models A SECOND ZENODO REPOSITORY (Done in Peregrine)
+X1) Write final README.md
+X2) All galaxies with the 5 SEDs models A SECOND ZENODO REPOSITORY (Done in Peregrine)
+
+
 
 
 ## Old TOC information (Maybe useful?)
