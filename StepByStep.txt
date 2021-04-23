@@ -54,23 +54,26 @@ TOC
 8) Example SEDs for SKIRTOR and Fritz (SED_Plots)
     8.1) Select best and worst SED fittings
     8.2) Plot the 4 SEDs for the best galaxy FIGURE 1 and the worst galaxy   
-9) Pre-Analyse of data (Pre-Analysis)
-    9.1) Join clean results
-    9.2) Experiments with the parameters of the classifiers, assuming both classifications
-    9.3) Use GridSearchCV to find parameters for the classifiers   
-10) Analyse the results with Tables (Analysis_Tables)
+9) Verification with other estimations (Verification_Estimations)
+    9.1) Obtain the data 
+    9.2) Compare the parameters FIGURE 3
+10) Pre-Analyse of data (PreAnalysis)
     10.1) Join clean results
-    10.2) Feature selection using RFECV and PCA FIGURE 3
-    10.3) Correlation-scores in the classification task with viewing angle and AGN disk luminosity TABLE 4
-    10.4) Correlation-scores in the classification task with ML TABLE 4
-    10.5) Predict classifications for S and SyG type galaxies TABLE 5          
+    10.2) Experiments with the parameters of the classifiers, assuming both classifications
+    10.3) Use GridSearchCV to find parameters for the classifiers   
+11) Analyse the results with Tables (Analysis_Tables)
+    11.1) Join clean results
+    11.2) Feature selection using RFECV and PCA FIGURE 4
+    11.3) Correlation-scores in the classification task with viewing angle and AGN disk luminosity TABLE 4
+    11.4) Correlation-scores in the classification task with ML TABLE 4
+    11.5) Predict classifications for S and SyG type galaxies TABLE 5          
 11) Analyse the results with Plots (Analysis_Plots)
-    11.1) Join clean results and transform to be used in the plots
-    11.2) Compare physical parameters from Fritz and SKIRTOR models FIGURE 4
-    11.3) Compare difference in physical parameters with Type. We use both SMB and VCV classifications so Type1=S1 and
-    Type2=S2 FIGURE 5. Additionally we compare the classifications also with the 30/70 model FIGURE ALT 5
-    11.4) Compare Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 6 in SKIRTOR
-    11.5) Redshift evolution of physical parameters FIGURE 7
+    12.1) Join clean results and transform to be used in the plots
+    12.2) Compare physical parameters from Fritz and SKIRTOR models FIGURE 5
+    12.3) Compare difference in physical parameters with Type. We use both SMB and VCV classifications so Type1=S1 and
+    Type2=S2 FIGURE 6. Additionally we compare the classifications also with the 30/70 model FIGURE ALT 6
+    12.4) Compare Other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 FIGURE 7 in SKIRTOR
+    12.5) Redshift evolution of physical parameters FIGURE 8
   
 A1) Verification of the narrow-line Seyfert 1 galaxies
     A1.1) Join information
@@ -80,14 +83,12 @@ X1) Write final README.md
 X2) All galaxies with the 5 SEDs models A SECOND ZENODO REPOSITORY (Done in Peregrine)
 
 
-
-
 ## Old TOC information (Maybe useful?)
 ?1.4) Find all NeV/NeII in the SIMBAD sample (AGN_with_NeV_Obtain) => AllSeyfertNeon.tbl
     ?1.4.1) Create a file for NED galaxy names => NameNED.txt
     ?1.4.2) Use NED and Simbad information to remove duplicates => GalaxiesWithNeVNeII.txt 
-?5.5) Check results with [Ne V]/[Ne II]  old FIGURE 7 ?
-?5.6) Check overlap between them and with Ramos Padilla 2020 old FIGURE 8 ?    
+?5.5) Check results with [Ne V]/[Ne II]
+?5.6) Check overlap between them and with Ramos Padilla 2020   
 ?4) Create the HELP Sample
     4.1) Obtain galaxies of the largest field on HELP, Herschel-82
     4.2) Use TOPCAT to match VCV_TAP with galaxies in HELP, clean in terms of redshift => HELP_VCV_TAP.txt
