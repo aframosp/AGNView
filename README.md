@@ -10,13 +10,19 @@ WARNING: At the moment the moment Python Markdown does not show the interactive 
 
 ## Software requirements
 
+Here we put the most important packages to work with the files. As some Python packages are already included in the OS, we print all the packages in a given notebook using the IPython magic extension [watermark](https://github.com/rasbt/watermark)  
+
 * CIGALE
 * Python
     * astropy
     * pandas
+    * numpy
+    * matplotlib
 
 ## Content
 
 * Data
+    * Raw
+    * Final
 * Figures
-* Notebooks
+* Notebooks (includes .ipynb, .html and .pdf files)

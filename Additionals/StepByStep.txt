@@ -20,7 +20,7 @@ TOC
     2.1) Remove different redshifts
     2.2) Separate the origin of the bibcode
     2.3) Dealing with UNK bibcodes and Seyfert Types
-    2.4) Create the final sample of galaxies in terms of redshift and bibcodes =>VCV_TAP_otypes.txt
+    2.4) Create the final sample of galaxies in terms of redshift and bibcodes =>VCV_SMB_otypes.txt
     2.5) Calculate the final numbers from the otypes TABLE 3
 3) Obtain the SEDs for Database Sample (Obtain_SEDs)
     3.1) Get SEDs from CDS = CDSVotables, and NED = NEDVotables with their respective bibcodes and
@@ -81,15 +81,3 @@ A1) Verification of the narrow-line Seyfert 1 galaxies
 
 X1) Write final README.md
 X2) All galaxies with the 5 SEDs models A SECOND ZENODO REPOSITORY (Done in Peregrine)
-
-
-## Old TOC information (Maybe useful?)
-?1.4) Find all NeV/NeII in the SIMBAD sample (AGN_with_NeV_Obtain) => AllSeyfertNeon.tbl
-    ?1.4.1) Create a file for NED galaxy names => NameNED.txt
-    ?1.4.2) Use NED and Simbad information to remove duplicates => GalaxiesWithNeVNeII.txt 
-?5.5) Check results with [Ne V]/[Ne II]
-?5.6) Check overlap between them and with Ramos Padilla 2020   
-?4) Create the HELP Sample
-    4.1) Obtain galaxies of the largest field on HELP, Herschel-82
-    4.2) Use TOPCAT to match VCV_TAP with galaxies in HELP, clean in terms of redshift => HELP_VCV_TAP.txt
-?5) Create CIGALE Photometry file for HELP Sample (CreateCIGALEPhotHELP)=> CIGALEPhotHELP.tbl
