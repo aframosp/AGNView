@@ -14,14 +14,15 @@ Here we put the most important packages to work with the files. As some Python p
 
 * CIGALE
 * Python
-    * astropy
+    * [astropy](https://github.com/astropy/astropy)
     * pandas
     * numpy
     * matplotlib
+    * astroquery
 
 ## Content
 
-* Data
+* [Data](Data)
     * Raw
     * Final
 * Figures

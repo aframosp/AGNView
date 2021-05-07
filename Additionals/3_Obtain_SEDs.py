@@ -40,10 +40,10 @@ class ObtainPhotometry:
         if path.exists('CDSVotables/'+self.name+'.vot'):
             print('Reading CDS')
         else:
-            time.sleep(5)
-            ASD = Simbad.query_object(self.name)
-            RA = ASD[0]['RA'].replace(' ', '%20')
-            DEC = ASD[0]['DEC'].replace(' ', '%20')
+            time.sleep(5) ## This is used to avoid being flag by the server
+            GalaxyS = Simbad.query_object(self.name)
+            RA = GalaxyS[0]['RA'].replace(' ', '%20')
+            DEC = GalaxyS[0]['DEC'].replace(' ', '%20')
             irl = 'http://vizier.u-strasbg.fr/viz-bin/sed?-c=' + \
                 str(RA)+'%20'+str(DEC)+'&-c.rs=5'
             print(irl)
@@ -71,9 +71,9 @@ class ObtainPhotometry:
         else:
             self.NEDTable = Table.read('NEDVotables/'+self.name+'.vot', format='votable')
 
-    def PlotSED(self, suav):
+    def PlotSED(self, smooth):
         """In case we want to observe the SED"""
-        if suav:
+        if smooth:
             self.SmoothSED()
             print(self.CDSTable.columns, self.NEDTable.columns)
         plt.scatter(self.CDSTable['sed_freq'].to(u.micron, equivalencies=u.spectral()),
@@ -88,20 +88,20 @@ class ObtainPhotometry:
     def AddBibcodeCDS(self):
         """Adding the bibcode to the CDS tables"""
         self.CDSTable['Bibcode'] = np.array(['Empty']*len(self.CDSTable), dtype='object')
-        for ads, adst in enumerate(self.CDSTable['_tabname']):
+        for tabindx, tabinfo in enumerate(self.CDSTable['_tabname']):
             try:
-                Namcat = adst.rpartition('/')[0]
+                Namcat = tabinfo.rpartition('/')[0]
                 Busq = Vizier.query_constraints(catalog='METAcat', name=Namcat)
-                self.CDSTable['Bibcode'][ads] = Busq[0][0]['bibcode']
+                self.CDSTable['Bibcode'][tabindx] = Busq[0][0]['bibcode']
             except:
-                print('What?', ads, adst)
+                print('There is an error at ', tabindx, tabinfo)
 
     def CheckBothTables(self):
         """Check the rows of CDS and NED and remove all duplicates in the photometric bands"""
         ToRem = []
-        for LASD in np.unique(self.NEDTable['Refcode']):
-            LCDS = np.where(self.CDSTable['Bibcode'] == LASD.decode('utf-8'))[0]
-            LNED = np.where(self.NEDTable['Refcode'] == LASD)[0]
+        for URefcode in np.unique(self.NEDTable['Refcode']):
+            LCDS = np.where(self.CDSTable['Bibcode'] == URefcode.decode('utf-8'))[0]
+            LNED = np.where(self.NEDTable['Refcode'] == URefcode)[0]
             if len(LCDS) > 0 and len(LNED) > 0:
                 print('Duplicate!')
                 for lcds in LCDS:
@@ -184,13 +184,13 @@ class CleanPhotometry:
         """ Use only the information that we need from NED """
         Tabls = []
         Coin = [np.where(self.NEDTable['Observed_Passband'] == filt)[0] for filt in tableFilter]
-        for k, ktex in enumerate(Coin):
-            AVG, STD = self.CleanNEDTo(self.NEDTable[ktex])
+        for bandinx, bandif in enumerate(Coin):
+            AVG, STD = self.CleanNEDTo(self.NEDTable[bandif])
             if np.isnan(AVG):
                 continue
             else:
-                Tabls.append([tableFilter[k], 
-                              np.mean(self.NEDTable[ktex]['Frequency'].to(u.micron,
+                Tabls.append([tableFilter[bandinx], 
+                              np.mean(self.NEDTable[bandif]['Frequency'].to(u.micron,
                                                                           equivalencies=u.spectral())),
                               AVG*u.Jy, STD*u.Jy])
         return(Table(np.array(Tabls), names=['Filter', 'Wave', 'Flux', 'F_er'],
@@ -201,13 +201,13 @@ class CleanPhotometry:
         Tabls = []
         Coin = [np.where(self.CDSTable['sed_filter'] == filt)[0]
                 for filt in tableFilter]
-        for k, ktex in enumerate(Coin):
-            AVG, STD = self.CleanCDSTo(self.CDSTable[ktex])
+        for bandinx, bandif in enumerate(Coin):
+            AVG, STD = self.CleanCDSTo(self.CDSTable[bandif])
             if np.isnan(AVG):
                 continue
             else:
-                Tabls.append([tableFilter[k], 
-                              np.mean(self.CDSTable[ktex]['sed_freq'].to(u.micron,
+                Tabls.append([tableFilter[bandinx], 
+                              np.mean(self.CDSTable[bandif]['sed_freq'].to(u.micron,
                                                                          equivalencies=u.spectral())),
                               AVG*u.Jy, STD*u.Jy])
         return(Table(np.array(Tabls), names=['Filter', 'Wave', 'Flux', 'F_er'],
@@ -218,10 +218,10 @@ class CleanPhotometry:
         self.TabFin = vstack([self.FiltersCDS(CDSFilters), self.FiltersNED(NEDFilters)])
         self.TabFin.remove_rows(np.where(self.TabFin['F_er']/self.TabFin['Flux'] >= 1))
 
-ii = 5460  # In case the connection is lost we will use this as our initial point
-for Galaxy in uniq(FinalName['main_id'])[ii:]:
+ind = 5460  # In case the connection is lost we will use this as our initial point (5460 is an example)
+for Galaxy in uniq(FinalName['main_id'])[ind:]:
     InitTabl = ObtainPhotometry(Galaxy)
     SED = CleanPhotometry(InitTabl.CDSTable, InitTabl.NEDTable).TabFin
     SED.write('SEDs/'+Galaxy+'_Phot.txt', format='ascii')
-    ii += 1
-    print(ii)
+    ind += 1
+    print(ind)
