@@ -25,5 +25,5 @@ Here we put the most important packages to work with the files. As some Python p
 * [Data](Data)
     * Raw
     * Final
-* Figures
-* Notebooks (includes .ipynb, .html and .pdf files)
+* [Figures](Figures)
+* [Notebooks](../Notebooks) (includes .ipynb, .html and .pdf files)
