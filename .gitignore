@@ -4,5 +4,6 @@
 __pycahe__/
 *.py[cod]
 
-# Files larger than 50MB:
-CIGALEOutputs/SFPandas
+# Temporal files:
+Data/Interim/CDSVotables/
+Data/Interim/NEDVotables/
