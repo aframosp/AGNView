@@ -1,12 +1,13 @@
-# Reproduction repository for paper "The viewing angle in AGN SED models, a data-driven analysis"
+# Reproduction repository for "The viewing angle in AGN SED models, a data-driven analysis"
 
 =======
 
-This repository contains data and code to reproduce the results of the paper "The viewing angle in AGN SED models, a data-driven analysis"(add link). 
+This repository contains data and code to reproduce the results of the paper "The viewing angle in AGN SED models, a data-driven analysis"(add link). Each step of the work is described in a [step-by-step](/Data/Additionals/StepByStep.md) file with their respective [Jupyter notebooks](/Notebooks). 
 
 For any questions or remarks, contact: [a.f.ramos.padilla@sron.nl](mailto:a.f.ramos.padilla@sron.nl)
 
-Some re-runs in the notebooks are needed to verify everything is working correctly. We are also organizing the table of contents and improving the code. License and Citation files are missing as well.
+Some re-runs in the notebooks are needed to verify everything is working correctly. LICANSE and Citation files are missing as well.
+
 
 ## Software requirements
 
@@ -28,10 +29,6 @@ These are the most important software packages to work with the files. We print 
 ## Content
 
 * [Data](/Data): Most of the data related with the paper.
-    * [Raw](/Data/Raw)
-    * [Interim](/Data/Interim) 
-    * [Final](/Data/Final):
-    * [Complementary](/Data/Complementary) 
-* [Figures](/Figures): Figures presented in the paper
+* [Figures](/Figures): Figures presented in the paper.
 * [Notebooks](/Notebooks): Most of the code to generate data and figures (includes the extensions .ipynb, .html and .pdf)
-* [Additionals](/Additionals)
+* [Additionals](/Additionals): Folder containing the step-by-step description and a auxiliary Python script.  
