@@ -10,15 +10,20 @@ Some re-runs in the notebooks are needed to verify everything is working correct
 
 ## Software requirements
 
-These are the most important software packages to work with the files. Some packages are already included when installing Python in the OS, then we print all the packages in a given notebook using the IPython magic extension [watermark](https://github.com/rasbt/watermark).  
+These are the most important software packages to work with the files. We print all the packages in a given notebook using the IPython magic extension [watermark](https://github.com/rasbt/watermark). We also use [autotpep8](https://pypi.org/project/autopep8/) to format the code to the PEP 8 style guide. 
 
 * [CIGALE](https://cigale.lam.fr/)???
-* Python (most important packages)
+* Python (we ignore standard libraries)
     * [astropy](https://github.com/astropy/astropy)
     * [pandas](https://pandas.pydata.org/)
     * [numpy](https://numpy.org/)
     * [matplotlib](https://matplotlib.org/)
     * [astroquery](https://astroquery.readthedocs.io/en/latest/)
+    * [scipy](https://www.scipy.org/)
+    * [sklearn](https://scikit-learn.org/stable/index.html)
+    * [seaborn](https://seaborn.pydata.org/index.html)
+    * [xgboost](https://xgboost.readthedocs.io/en/latest/)
+    * [requests](https://docs.python-requests.org/en/master/)
 
 ## Content
 

@@ -33,7 +33,7 @@ class ObtainPhotometry:
         self.ReadVotTables()
         self.AddBibcodeCDS()
         self.CheckBothTables()
-#         self.PlotSED(Smot) ## Just when we want to see the SED
+#         self.PlotSED(Smot)  # Just when we want to see the SED
 
     def ObtainVot(self):
         """Function to obtain the VOTables"""
@@ -41,7 +41,7 @@ class ObtainPhotometry:
         if path.exists(self.tmpCDS+self.name+'.vot'):
             print('Reading CDS file')
         else:
-            time.sleep(5) ## This is used to avoid being flag by the server
+            time.sleep(5)  # This is used to avoid being flag by the server
             GalaxyS = Simbad.query_object(self.name)
             RA = GalaxyS[0]['RA'].replace(' ', '%20')
             DEC = GalaxyS[0]['DEC'].replace(' ', '%20')
@@ -59,7 +59,7 @@ class ObtainPhotometry:
             try:
                 NEDTab = Ned.get_table(self.name, table='photometry')
                 NEDTab[NEDTab['NED Units'] == b'Jy'].write(self.tmpNED+self.name+'.vot',
-                                                           format='votable') # Use just photometry
+                                                           format='votable')  # Use just photometry
             except:
                 self.NEDFlag = True
 
@@ -223,6 +223,7 @@ class CleanPhotometry:
         """Finally, we join the tables and remove those whose errors are too high"""
         self.TabFin = vstack([self.FiltersCDS(CDSFilters), self.FiltersNED(NEDFilters)])
         self.TabFin.remove_rows(where(self.TabFin['F_er']/self.TabFin['Flux'] >= 1))
+
 
 ind = 5460  # In case the connection is lost we will use this as our initial point (5460 is an example)
 for Galaxy in uniq(Sample['main_id'])[ind:]:

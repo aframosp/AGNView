@@ -19,7 +19,7 @@ TOC
 2) Clean the Seyfert Sample (Clean_Sample)
     2.1) Remove different redshifts
     2.2) Separate the origin of the bibcode
-    2.3) Dealing with UNK bibcodes and Seyfert Types
+    2.3) Dealing with UNK bibcodes and Seyfert Types =>NLS1_reclass.txt
     2.4) Create the final sample of galaxies in terms of redshift and bibcodes =>VCV_SMB_otypes.txt
     2.5) Calculate the final numbers from the otypes TABLE 3
 3) Obtain the SEDs for Database Sample (Obtain_SEDs)
@@ -80,4 +80,4 @@ A1) Verification of the narrow-line Seyfert 1 galaxies
     A1.2) Comparing AGN parameters FIGURE A1
 
 X1) Write final README.md
-X2) All galaxies with the 5 SEDs models A SECOND ZENODO REPOSITORY (Done in Peregrine)
+X2) All galaxies with the 5 SEDs models, complementary repository
