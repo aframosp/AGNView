@@ -7,7 +7,7 @@ This repository contains data and code to reproduce the results of the paper "Th
 
 For any questions or remarks, contact: [a.f.ramos.padilla@sron.nl](mailto:a.f.ramos.padilla@sron.nl)
 
-**Some re-runs in the notebooks are needed to verify everything is working correctly. LICENSE and Citation files are missing as well.**
+**Some re-runs in the notebooks are needed to verify everything is working correctly.**
 
 
 ## Software requirements
