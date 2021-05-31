@@ -1,6 +1,7 @@
 # Reproduction repository for "The viewing angle in AGN SED models, a data-driven analysis"
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/aframosp/AGNView/HEAD)
+[![DOI](https://sandbox.zenodo.org/badge/371705993.svg)](https://sandbox.zenodo.org/badge/latestdoi/371705993)
 
 This repository contains data and code to reproduce the results of the paper "The viewing angle in AGN SED models, a data-driven analysis"(add link). Each step of the work is described in a [step-by-step](/Additionals/StepByStep.md) file with their respective [Jupyter notebooks](/Notebooks). 
 
