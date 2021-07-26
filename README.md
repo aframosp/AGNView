@@ -5,9 +5,7 @@
 
 This repository contains data and code to reproduce the results of the paper "The viewing angle in AGN SED models, a data-driven analysis"(add link). Each step of the work is described in a [step-by-step](/Additionals/StepByStep.md) file with their respective [Jupyter notebooks](/Notebooks). 
 
-For any questions or remarks, contact: [a.f.ramos.padilla@sron.nl](mailto:a.f.ramos.padilla@sron.nl)
-
-**Some re-runs in the notebooks are needed to verify everything is working correctly.**
+For any questions or remarks, contact: [a.f.ramos.padilla at sron.nl](mailto:a.f.ramos.padilla@sron.nl)
 
 
 ## Software requirements
