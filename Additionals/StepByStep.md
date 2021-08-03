@@ -1,6 +1,6 @@
 # Step-By-Step
 
-This file works as a Table of contents (TOC) to follow the procedures done to reproduce the information presented in the paper. The numbers on this TOC are the same as in the [Jupyter notebooks](../Notebooks). Each subseccion related to a [Data](../Data), [Additional](../Additionals) or [Figure](../Figures) file is indicated with a '=>'. It is important to keep in mind that one of the steps is not included in this repository (Step 5, where we run the [CIGALE](https://cigale.lam.fr/) modelling in the [Peregrine cluster](https://www.rug.nl/society-business/centre-for-information-technology/research/services/hpc/facilities/peregrine-hpc-cluster?lang=en)). The information created at that step is located in the repositoty [NN](??), where we add a script to generate the SEDs for a given galaxy inside the Seyfert Sample. 
+This file works as a Table of contents (TOC) to follow the procedures done to reproduce the information presented in the paper. The numbers on this TOC are the same as in the [Jupyter notebooks](../Notebooks). Each subseccion related to a [Data](../Data), [Additional](../Additionals) or [Figure](../Figures) file is indicated with a '=>'. It is important to keep in mind that one of the steps is not included in this repository (Step 5, where we run the [CIGALE](https://cigale.lam.fr/) modelling in the [Peregrine cluster](https://www.rug.nl/society-business/centre-for-information-technology/research/services/hpc/facilities/peregrine-hpc-cluster?lang=en)). The information created at that step is located in a [Zenodo repositoty](https://doi.org/10.5281/zenodo.NNNNNNN), where we add a script to generate the SEDs for a given galaxy inside the Seyfert Sample. 
 
 ## TOC
 1) [Create the Database Sample](../Notebooks/1_Obtain_Seyfert_Samples.ipynb)
@@ -61,6 +61,7 @@ This file works as a Table of contents (TOC) to follow the procedures done to re
 * 12.3 Compare difference in physical parameters with Type. We use both SMB and VCV classifications so Type-1=Sy1 and Type-2=Sy2 [**FIGURE 7**](../Figures/F7.pdf). Additionally we compare the classifications also with the 30/70 model [**FIGURE ALT 7**](../Figures/F7_Alt.pdf)
 * 12.4 Compare other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 [**FIGURE 8**](../Figures/F8.pdf) with SKIRTOR model
 * 12.5 Redshift evolution of physical parameters [**FIGURE 9**](../Figures/F9.pdf)
+* 12.6 Accretion power (intrinsic luminosity of the disk AGN luminosity) for the different setups [**FIGURE 10**](../Figures/F9.pdf)
   
 A1. [Verification of the narrow-line Seyfert 1 galaxies](../Notebooks/A1_NarrowLineS1.ipynb)
 * A1.1 Join information
