@@ -52,7 +52,7 @@ This file works as a Table of contents (TOC) to follow the procedures done to re
 11) [Analyse the results with Tables](../Notebooks/11_Analysis_Tables.ipynb)
 * 11.1 Join clean results
 * 11.2 Feature selection using [RFECV](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFECV.html) [**FIGURE 5**](../Figures/F5.pdf)
-* 11.3 Correlation-scores in the classification task with viewing angle and AGN disk luminosity TABLE 4
+* 11.3 Correlation-scores in the classification task with viewing angle and AGN disc luminosity TABLE 4
 * 11.4 Correlation-scores in the classification task with ML TABLE 4
 * 11.5 Predict classifications for S and SyG type galaxies TABLE 5          
 12) [Analyse the results with Plots](../Notebooks/12_Analysis_Plots.ipynb)
@@ -61,7 +61,7 @@ This file works as a Table of contents (TOC) to follow the procedures done to re
 * 12.3 Compare difference in physical parameters with Type. We use both SMB and VCV classifications so Type-1=Sy1 and Type-2=Sy2 [**FIGURE 7**](../Figures/F7.pdf). Additionally we compare the classifications also with the 30/70 model [**FIGURE ALT 7**](../Figures/F7_Alt.pdf)
 * 12.4 Compare other VCV classifications as S1.0, S1.2, S1.5, S1.8, S1.9 [**FIGURE 8**](../Figures/F8.pdf) with SKIRTOR model
 * 12.5 Redshift evolution of physical parameters [**FIGURE 9**](../Figures/F9.pdf)
-* 12.6 Accretion power (intrinsic luminosity of the disk AGN luminosity) for the different setups [**FIGURE 10**](../Figures/F9.pdf)
+* 12.6 Accretion power (intrinsic luminosity of the disc AGN luminosity) for the different setups [**FIGURE 10**](../Figures/F9.pdf)
   
 A1. [Verification of the narrow-line Seyfert 1 galaxies](../Notebooks/A1_NarrowLineS1.ipynb)
 * A1.1 Join information
