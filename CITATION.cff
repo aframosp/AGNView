@@ -1,0 +1,30 @@
+# YAML 1.2
+---
+authors: 
+  -
+    family-names: "Ramos Padilla"
+    given-names: "Andres Felipe"
+    orcid: "https://orcid.org/0000-0002-4561-2452"
+  -
+    family-names: Wang
+    given-names: Lingyu
+  -
+    family-names: Yang
+    given-names: Guang
+    orcid: "https://orcid.org/0000-0001-8835-7722"
+cff-version: "1.1.0"
+doi: "10.1093/mnras/staa2813"
+keywords: 
+  - astronomy
+  - "data analysis"
+  - galaxies
+  - AGN
+  - "Seyfert galaxies"
+  - "astronomical databases"
+  - SED
+  - "viewing angle"
+license: "GPL-3.0"
+message: "If you use this dataset, please cite it using these metadata."
+repository-code: "https://github.com/aframosp/AGNView"
+title: "Reproduction package for \"The viewing angle in AGN SED models, a data-driven analysis\""
+...
