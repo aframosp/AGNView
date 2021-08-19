@@ -13070,28 +13070,6 @@ div#notebook {
     });
     </script>
     <!-- End of mathjax configuration --></head>
-
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/main.css">
-
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/toc2.js"></script>
-
-<script>
-$( document ).ready(function(){
-
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
-
-            // fire the main function with these parameters
-            require(['nbextensions/toc2/toc2'], function (toc2) {
-                toc2.table_of_contents(cfg);
-            });
-    });
-</script>
 <body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
@@ -13099,18 +13077,26 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Obtain-Seyfert-Samples">Obtain Seyfert Samples<a class="anchor-link" href="#Obtain-Seyfert-Samples">&#182;</a></h1><p>In this notebook we show the steps to obtain the Seyfert sample of galaxies.</p>
-<p>We import only the <code>astropy</code> Table as most of the work for this step is done outside Jupyter notebooks (with <a href="http://www.star.bris.ac.uk/~mbt/topcat/">TOPCAT</a>).</p>
+<h1 id="Obtain-Seyfert-Samples">Obtain Seyfert Samples<a class="anchor-link" href="#Obtain-Seyfert-Samples">&#182;</a></h1><p>In this notebook we show the steps to obtain the Seyfert sample of galaxies.
+We import the Python packages required to retrieve the data and create the match between the catalogs.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">Table</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+
+<span class="kn">import</span> <span class="nn">pyvo</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">astroquery.vizier</span> <span class="kn">import</span> <span class="n">Vizier</span>
+
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">hstack</span>
+<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span><span class="p">,</span> <span class="n">Angle</span>
 </pre></div>
 
     </div>
@@ -13121,15 +13107,50 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Obtaining-the-list">Obtaining the list<a class="anchor-link" href="#Obtaining-the-list">&#182;</a></h2>
+<p>We define the date to save the date in the name of the files, as the data from the data archives can change with time.</p>
+
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">today</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We obtain the <a href="http://simbad.u-strasbg.fr/simbad/">SIMBAD</a> (SMB) sample of galaxies (SMB_3Dec.fits) with the following SQL query.</p>
-<p><strong>Be aware that here we refer to SQL to the queries. However, <a href="http://simbad.u-strasbg.fr/simbad/sim-tap">SIMBAD-TAP</a> actually uses <a href="https://www.ivoa.net/documents/latest/ADQL.html">ADQL</a> (Astronomical Data Query Language), which is based on SQL.</strong></p>
+<p>We set a the row limit to -1 to obtain all the rows in the catalog</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Vizier</span><span class="o">.</span><span class="n">ROW_LIMIT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Obtaining-the-list">Obtaining the list<a class="anchor-link" href="#Obtaining-the-list">&#182;</a></h2><p>First, we connect through <code>pyvo</code> with the TAP Service of <a href="http://simbad.u-strasbg.fr/simbad/">SIMBAD</a>.Then, we obtain the SMB sample of galaxies (SMB_date.csv) with the following SQL query.
+<strong>Be aware that here we refer to SQL to the queries. However, <a href="http://simbad.u-strasbg.fr/simbad/sim-tap">SIMBAD-TAP</a> actually uses <a href="https://www.ivoa.net/documents/latest/ADQL.html">ADQL</a> (Astronomical Data Query Language), which is based on SQL.</strong></p>
 <div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">main_id</span>
     <span class="p">,</span><span class="n">ra</span>
     <span class="p">,</span><span class="nb">DEC</span>
@@ -13151,28 +13172,85 @@ $( document ).ready(function(){
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">service</span> <span class="o">=</span> <span class="n">pyvo</span><span class="o">.</span><span class="n">dal</span><span class="o">.</span><span class="n">TAPService</span><span class="p">(</span><span class="s2">&quot;http://simbad.u-strasbg.fr:80/simbad/sim-tap&quot;</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT main_id</span>
+<span class="s2">    ,ra</span>
+<span class="s2">    ,DEC</span>
+<span class="s2">    ,coo_bibcode</span>
+<span class="s2">    ,otype_txt</span>
+<span class="s2">    ,rvz_bibcode</span>
+<span class="s2">    ,rvz_radvel</span>
+<span class="s2">    ,rvz_redshift</span>
+<span class="s2">    ,rvz_type</span>
+<span class="s2">    ,nbref</span>
+<span class="s2">    ,alltypes.otypes</span>
+<span class="s2">FROM basic</span>
+<span class="s2">JOIN alltypes ON oid = oidref</span>
+<span class="s2">WHERE basic.otype = &#39;Sy1&#39;</span>
+<span class="s2">    OR basic.otype = &#39;Sy2&#39;</span>
+<span class="s2">    OR basic.otype = &#39;SyG&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simbad_sample</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">to_table</span><span class="p">()</span>
+<span class="n">simbad_sample</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;../Data/Raw/SMB&#39;</span> <span class="o">+</span> <span class="n">today</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;_%b_</span><span class="si">%d</span><span class="s1">_%Y&#39;</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span>
+                    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>WARNING: AstropyDeprecationWarning: ../Data/Raw/SMB_Jul_13_2021.csv already exists. Automatically overwriting ASCII files is deprecated. Use the argument &#39;overwrite=True&#39; in the future. [astropy.io.ascii.ui]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Using-TOPCAT-for-the-cross-match">Using TOPCAT for the cross-match<a class="anchor-link" href="#Using-TOPCAT-for-the-cross-match">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We used <a href="http://www.star.bris.ac.uk/~mbt/topcat/">TOPCAT</a> in this step. First, we obtained the <a href="https://cdsarc.unistra.fr/viz-bin/cat/VII/258">Veron-Cetty M.P. , Veron P. 2010</a> (VCV) catalog from <a href="https://vizier.u-strasbg.fr/viz-bin/VizieR">VizieR</a>. Then, we added the SMB file in TOPCAT. We cross-matched the two samples in terms of coordinates, assuming galaxies are the same if their coordinates differ by less than 2 arcsecs. The final file (SMB_VCV.fits) is saved and then is transformed in a <a href="http://www.star.bris.ac.uk/~mbt/topcat/sun253/inVotable.html">VOTable</a> here. This step can also be done in TOPCAT.</p>
+<h2 id="Matching-with-VCV">Matching with VCV<a class="anchor-link" href="#Matching-with-VCV">&#182;</a></h2><p>First, we obtained the <a href="https://cdsarc.unistra.fr/viz-bin/cat/VII/258">Veron-Cetty M.P. , Veron P. 2010</a> (VCV) catalog from <a href="https://vizier.u-strasbg.fr/viz-bin/VizieR">VizieR</a> with <code>astroquery</code>. Then, we cross-matched the two samples in terms of coordinates, assuming galaxies are the same if their coordinates differ by less than 2 arcsecs. The save the matched file as SMB_VCV_date.fits.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Matched</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;../Data/Raw/SMB_VCV.fits&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;fits&#39;</span><span class="p">)</span>
-<span class="n">Matched</span><span class="p">[</span><span class="s1">&#39;main_id&#39;</span><span class="p">,</span> <span class="s1">&#39;otype_txt&#39;</span><span class="p">,</span> <span class="s1">&#39;otypes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;../Data/Raw/SMBVCV_VO&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;votable&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">veron_cetty_veron</span> <span class="o">=</span> <span class="n">Vizier</span><span class="o">.</span><span class="n">get_catalogs</span><span class="p">(</span><span class="s1">&#39;VII/258&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -13183,53 +13261,184 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Get-the-bibcodes-for-the-classification-type">Get the bibcodes for the classification type<a class="anchor-link" href="#Get-the-bibcodes-for-the-classification-type">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We run the following SQL query to search for the bibcodes of the otypes in SMB with the SMBVCV_VO file. We save this information in a separated file (BibcodesOtypes.fits)</p>
+<p>From VCV we select only galaxies classified as Seyfert (all the ones that start with a S in the spectral type)</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">Sy</span><span class="p">.</span><span class="n">main_id</span>
-    <span class="p">,</span><span class="n">otypes</span><span class="p">.</span><span class="n">otype_txt</span>
-    <span class="p">,</span><span class="n">otypes</span><span class="p">.</span><span class="n">origin</span>
-<span class="k">FROM</span> <span class="n">basic</span>
-<span class="k">JOIN</span> <span class="n">ident</span> <span class="k">ON</span> <span class="n">oidref</span> <span class="o">=</span> <span class="n">oid</span>
-<span class="k">JOIN</span> <span class="n">otypes</span> <span class="k">USING</span> <span class="p">(</span><span class="n">oidref</span><span class="p">)</span>
-<span class="k">JOIN</span> <span class="n">TAP_UPLOAD</span><span class="p">.</span><span class="n">Seyf</span> <span class="k">AS</span> <span class="n">Sy</span> <span class="k">ON</span> <span class="n">Sy</span><span class="p">.</span><span class="n">main_id</span> <span class="o">=</span> <span class="n">basic</span><span class="p">.</span><span class="n">main_id</span>
-<span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="n">Sy</span><span class="p">.</span><span class="n">main_id</span>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">select_sy</span> <span class="o">=</span> <span class="p">[</span><span class="n">sp_type</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)</span>
+             <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">sp_type</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">veron_cetty_veron</span><span class="p">[</span><span class="s1">&#39;Sp&#39;</span><span class="p">])]</span>
 </pre></div>
 
+    </div>
 </div>
 </div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With this information, we can clean the files in 2_Clean_Sample.ipynb</p>
+<p>We remove galaxies where their coordinates and redshifts is not described in SMB</p>
 
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bad_gal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="n">simbad_sample</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mask</span><span class="p">,</span>
+                                        <span class="n">simbad_sample</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mask</span><span class="p">,</span>
+                                        <span class="n">simbad_sample</span><span class="p">[</span><span class="s1">&#39;rvz_redshift&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mask</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">simbad_sample</span><span class="o">.</span><span class="n">remove_rows</span><span class="p">(</span><span class="n">bad_gal</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Another-solution">Another solution<a class="anchor-link" href="#Another-solution">&#182;</a></h2><p>After checking that the two SQL queries can be united without uploading a new table, another solution to get the origin of the otype is run the following SQL query</p>
+<p>We rearrange the coordinates to match with SMB</p>
 
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vcv_sample</span> <span class="o">=</span> <span class="n">veron_cetty_veron</span><span class="p">[</span><span class="n">select_sy</span><span class="p">]</span>
+<span class="n">vcv_sample</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">Angle</span><span class="p">(</span><span class="n">vcv_sample</span><span class="p">[</span><span class="s1">&#39;RAJ2000&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+                          <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;hourangle&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vcv_sample</span><span class="p">))]</span>
+<span class="n">vcv_sample</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">Angle</span><span class="p">(</span><span class="n">vcv_sample</span><span class="p">[</span><span class="s1">&#39;DEJ2000&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+                           <span class="n">unit</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vcv_sample</span><span class="p">))]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>We perform the match between the two catalogs</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cat1</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">ra</span><span class="o">=</span><span class="n">vcv_sample</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">dec</span><span class="o">=</span><span class="n">vcv_sample</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">])</span>
+<span class="n">cat2</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">ra</span><span class="o">=</span><span class="n">simbad_sample</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">dec</span><span class="o">=</span><span class="n">simbad_sample</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">])</span>
+<span class="n">idx</span><span class="p">,</span> <span class="n">d2d</span><span class="p">,</span> <span class="n">d3d</span> <span class="o">=</span> <span class="n">cat1</span><span class="o">.</span><span class="n">match_to_catalog_sky</span><span class="p">(</span><span class="n">cat2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then, we select only galaxies that are inside a 2D distance of 2 arcsecs. With this radius we do not find any multiple matches.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sep_constraint</span> <span class="o">=</span> <span class="n">d2d</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span>
+<span class="n">vcv_match</span> <span class="o">=</span> <span class="n">vcv_sample</span><span class="p">[</span><span class="n">sep_constraint</span><span class="p">]</span>
+<span class="n">smb_match</span> <span class="o">=</span> <span class="n">simbad_sample</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">sep_constraint</span><span class="p">]]</span>
+
+<span class="n">matched</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">([</span><span class="n">smb_match</span><span class="p">,</span> <span class="n">vcv_match</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;Sp&#39;</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>WARNING: MergeConflictWarning: Cannot merge meta key &#39;ID&#39; types &lt;class &#39;str&#39;&gt; and &lt;class &#39;str&#39;&gt;, choosing ID=&#39;VII_258_vv10&#39; [astropy.utils.metadata]
+WARNING: MergeConflictWarning: Cannot merge meta key &#39;name&#39; types &lt;class &#39;str&#39;&gt; and &lt;class &#39;str&#39;&gt;, choosing name=&#39;VII/258/vv10&#39; [astropy.utils.metadata]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, we save the galaxies where the redshift is similar between the two catalogs.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matched</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;../Data/Raw/SMB_VCV&#39;</span><span class="o">+</span><span class="n">today</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;_%b_</span><span class="si">%d</span><span class="s1">_%Y&#39;</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>WARNING: AstropyDeprecationWarning: ../Data/Raw/SMB_VCV_Jul_13_2021.csv already exists. Automatically overwriting ASCII files is deprecated. Use the argument &#39;overwrite=True&#39; in the future. [astropy.io.ascii.ui]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Get-the-bibcodes-for-the-classification-type">Get the bibcodes for the classification type<a class="anchor-link" href="#Get-the-bibcodes-for-the-classification-type">&#182;</a></h2><p>We run the following SQL query to search for the bibcodes of the otypes in SMB with the SMBVCV_VO file.</p>
 <div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">main_id</span>
     <span class="p">,</span><span class="n">ra</span>
     <span class="p">,</span><span class="nb">DEC</span>
@@ -13242,34 +13451,80 @@ $( document ).ready(function(){
     <span class="k">OR</span> <span class="n">basic</span><span class="p">.</span><span class="n">otype</span> <span class="o">=</span> <span class="s1">&#39;Sy2&#39;</span>
     <span class="k">OR</span> <span class="n">basic</span><span class="p">.</span><span class="n">otype</span> <span class="o">=</span> <span class="s1">&#39;SyG&#39;</span>
 </pre></div>
+<p>We save this information in a separated file (BibcodesOtypes.fits)</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>and then you could filter with the selected SMB_VCV information.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Notebook-info">Notebook info<a class="anchor-link" href="#Notebook-info">&#182;</a></h5>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">service</span> <span class="o">=</span> <span class="n">pyvo</span><span class="o">.</span><span class="n">dal</span><span class="o">.</span><span class="n">TAPService</span><span class="p">(</span><span class="s2">&quot;http://simbad.u-strasbg.fr:80/simbad/sim-tap&quot;</span><span class="p">)</span>
+
+<span class="n">results_new</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT DISTINCT main_id</span>
+<span class="s2">    ,ra</span>
+<span class="s2">    ,DEC</span>
+<span class="s2">    ,otypes.otype_txt</span>
+<span class="s2">    ,otypes.origin</span>
+<span class="s2">FROM basic</span>
+<span class="s2">JOIN ident ON oidref = oid</span>
+<span class="s2">JOIN otypes USING (oidref)</span>
+<span class="s2">WHERE basic.otype = &#39;Sy1&#39;</span>
+<span class="s2">    OR basic.otype = &#39;Sy2&#39;</span>
+<span class="s2">    OR basic.otype = &#39;SyG&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">maxrec</span><span class="o">=</span><span class="mi">200000</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bibcodes_types</span> <span class="o">=</span> <span class="n">results_new</span><span class="o">.</span><span class="n">to_table</span><span class="p">()</span>
+<span class="n">bibcodes_types</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;../Data/Raw/BibcodesOtypes&#39;</span><span class="o">+</span> <span class="n">today</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;_%b_</span><span class="si">%d</span><span class="s1">_%Y&#39;</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span>
+                     <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>WARNING: AstropyDeprecationWarning: ../Data/Raw/BibcodesOtypes_Jul_13_2021.csv already exists. Automatically overwriting ASCII files is deprecated. Use the argument &#39;overwrite=True&#39; in the future. [astropy.io.ascii.ui]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> watermark
 <span class="o">%</span><span class="k">watermark</span> -a &quot;Andres Ramos&quot; -d -v -m
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Specific Python packages&#39;</span><span class="p">)</span>
-<span class="o">%</span><span class="k">watermark</span> -iv -w 
+<span class="o">%</span><span class="k">watermark</span> -iv -w --packages astropy
 </pre></div>
 
     </div>
@@ -13286,9 +13541,7 @@ $( document ).ready(function(){
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>The watermark extension is already loaded. To reload it, use:
-  %reload_ext watermark
-Author: Andres Ramos
+<pre>Author: Andres Ramos
 
 Python implementation: CPython
 Python version       : 3.8.3
@@ -13296,16 +13549,20 @@ IPython version      : 7.16.1
 
 Compiler    : GCC 7.3.0
 OS          : Linux
-Release     : 3.10.0-1160.el7.x86_64
+Release     : 3.10.0-1160.25.1.el7.x86_64
 Machine     : x86_64
 Processor   : x86_64
 CPU cores   : 8
 Architecture: 64bit
 
 Specific Python packages
+astropy: 4.2
+
+astropy : 4.2
 json    : 2.0.9
+autopep8: 1.5.7
+pyvo    : 1.1
 numpy   : 1.19.5
-autopep8: 1.5.4
 
 Watermark: 2.1.0
 

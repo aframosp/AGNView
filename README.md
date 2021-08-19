@@ -5,12 +5,12 @@
 
 This repository contains data and code to reproduce the results of the paper "The viewing angle in AGN SED models, a data-driven analysis"(add link). Each step of the work is described in a [step-by-step](/Additionals/StepByStep.md) file with their respective [Jupyter notebooks](/Notebooks). 
 
-For any questions or remarks, contact: [a.f.ramos.padilla at sron.nl](mailto:a.f.ramos.padilla@sron.nl)
+For any questions or remarks, contact: [ramos at astro.rug.nl](mailto:ramos@astro.rug.nl)
 
 
 ## Software requirements
 
-The most important software packages to work with the files in this repository are in [environment.yml](environment.yml). This file is also used to launch a Binder to open the Jupyter notebooks interactively. We print all the packages in a given notebook using the IPython magic extension [watermark](https://github.com/rasbt/watermark). We also use [autotpep8](https://pypi.org/project/autopep8/) to format the code to the PEP 8 style guide. 
+The most important software packages to work with the files in this repository are in [environment.yml](environment.yml). This file is also used to launch a [Binder](https://mybinder.org/) to open the Jupyter notebooks interactively. We print all the packages in a given notebook using the IPython magic extension [watermark](https://github.com/rasbt/watermark). We also use [autotpep8](https://pypi.org/project/autopep8/) to format the code to the PEP 8 style guide. 
 
 ## Content
 
