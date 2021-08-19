@@ -8,12 +8,19 @@ authors:
   -
     family-names: Wang
     given-names: Lingyu
+    orcid: "https://orcid.org/0000-0002-6736-9158"
+  -
+    family-names: Malek
+    given-names: Katarzyna
+    orcid: "https://orcid.org/0000-0003-3080-9778"
+  -
+    family-names: Efstathiou
+    given-names: Andreas
   -
     family-names: Yang
     given-names: Guang
     orcid: "https://orcid.org/0000-0001-8835-7722"
 cff-version: "1.1.0"
-doi: "10.1093/mnras/staa2813"
 keywords: 
   - astronomy
   - "data analysis"
@@ -26,5 +33,5 @@ keywords:
 license: "GPL-3.0"
 message: "If you use this dataset, please cite it using these metadata."
 repository-code: "https://github.com/aframosp/AGNView"
-title: "Reproduction package for \"The viewing angle in AGN SED models, a data-driven analysis\""
+title: "Reproduction repository for \"The viewing angle in AGN SED models, a data-driven analysis\""
 ...
