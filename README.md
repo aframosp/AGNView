@@ -3,7 +3,9 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/aframosp/AGNView/HEAD)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5227294.svg)](https://doi.org/10.5281/zenodo.5227294)
 
-This repository contains data and code to reproduce the results of the paper "The viewing angle in AGN SED models, a data-driven analysis". Each step of the work is described in a [step-by-step](/Additionals/StepByStep.md) file with their respective [Jupyter notebooks](/Notebooks). 
+This repository contains data and code to reproduce the results of the paper "The viewing angle in AGN SED models, a data-driven analysis". Each step of the work is described in a [step-by-step](/Additionals/StepByStep.md) file with their respective [Jupyter notebooks](/Notebooks).
+
+Output data from the [CIGALE](https://cigale.lam.fr/) setups can be found in [this Zenodo dataset](https://zenodo.org/record/5221764).
 
 For any questions or remarks, contact: [ramos at astro.rug.nl](mailto:ramos@astro.rug.nl)
 
@@ -17,4 +19,4 @@ The most important software packages to work with the files in this repository a
 * [Data](/Data): Most of the data related with the paper.
 * [Figures](/Figures): Figures presented in the paper.
 * [Notebooks](/Notebooks): Most of the code to generate data and figures (includes the extensions .ipynb and .html)
-* [Additionals](/Additionals): Folder containing the step-by-step description and an auxiliary Python script.
+* [Additionals](/Additionals): Folder containing the step-by-step description, an auxiliary Python script and a notebook with the effect of missing photometric bands.
