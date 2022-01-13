@@ -3,7 +3,7 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/aframosp/AGNView/HEAD)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5227294.svg)](https://doi.org/10.5281/zenodo.5227294)
 
-This repository contains data and code to reproduce the results of the paper "The viewing angle in AGN SED models, a data-driven analysis". Each step of the work is described in a [step-by-step](/Additionals/StepByStep.md) file with their respective [Jupyter notebooks](/Notebooks). **You can run the notebooks by clicking the Binder launch button above**
+This repository contains data and code to reproduce the results of the paper "[The viewing angle in AGN SED models, a data-driven analysis](https://academic.oup.com/mnras/article/510/1/687/6448487)". Each step of the work is described in a [step-by-step](/Additionals/StepByStep.md) file with their respective [Jupyter notebooks](/Notebooks). **You can run the notebooks by clicking the Binder launch button above**
 
 Output data from the [CIGALE](https://cigale.lam.fr/) setups can be found in [this Zenodo dataset](https://zenodo.org/record/5221764).
 
